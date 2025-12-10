@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Paul Riesthuis">
-<meta name="dcterms.date" content="2025-12-09">
 
-<title>Introduction to R for Data Analysis</title>
+<title>1&nbsp; R and Rstudio environment – Introduction to R for Data Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./chapter1.html" rel="next">
+<link href="./chapter2.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -249,7 +283,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter1.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R and Rstudio environment</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -296,13 +330,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapter1.html" class="sidebar-item-text sidebar-link">
+  <a href="./chapter1.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R and Rstudio environment</span></span></a>
   </div>
 </li>
@@ -334,7 +368,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#r-and-rstudio" id="toc-r-and-rstudio" class="nav-link active" data-scroll-target="#r-and-rstudio"><span class="header-section-number">1.1</span> R and Rstudio</a></li>
+  <li><a href="#sec-coding" id="toc-sec-coding" class="nav-link" data-scroll-target="#sec-coding"><span class="header-section-number">1.2</span> Coding</a>
+  <ul class="collapse">
+  <li><a href="#sec-example-1-variable-with-single-number" id="toc-sec-example-1-variable-with-single-number" class="nav-link" data-scroll-target="#sec-example-1-variable-with-single-number"><span class="header-section-number">1.2.1</span> Example 1: Variable with single number</a></li>
+  <li><a href="#sec-example-2-variable-with-multiple-numbers" id="toc-sec-example-2-variable-with-multiple-numbers" class="nav-link" data-scroll-target="#sec-example-2-variable-with-multiple-numbers"><span class="header-section-number">1.2.2</span> Example 2: Variable with multiple numbers</a></li>
+  <li><a href="#sec-example-3-row-vs-column-vectors" id="toc-sec-example-3-row-vs-column-vectors" class="nav-link" data-scroll-target="#sec-example-3-row-vs-column-vectors"><span class="header-section-number">1.2.3</span> Example 3: row vs column vectors</a></li>
+  <li><a href="#sec-example-4-dataframes" id="toc-sec-example-4-dataframes" class="nav-link" data-scroll-target="#sec-example-4-dataframes"><span class="header-section-number">1.2.4</span> Example 4: Dataframes</a></li>
+  <li><a href="#sec-example-5-accessing-and-subsetting-data" id="toc-sec-example-5-accessing-and-subsetting-data" class="nav-link" data-scroll-target="#sec-example-5-accessing-and-subsetting-data"><span class="header-section-number">1.2.5</span> Example 5: <strong>Accessing and Subsetting Data</strong></a></li>
+  <li><a href="#sec-example-6-descriptive-statistics" id="toc-sec-example-6-descriptive-statistics" class="nav-link" data-scroll-target="#sec-example-6-descriptive-statistics"><span class="header-section-number">1.2.6</span> Example 6: <strong>Descriptive statistics</strong></a></li>
+  <li><a href="#sec-summary-and-conclusion" id="toc-sec-summary-and-conclusion" class="nav-link" data-scroll-target="#sec-summary-and-conclusion"><span class="header-section-number">1.2.7</span> Summary and conclusion</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -344,26 +388,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to R for Data Analysis</h1>
+<h1 class="title"><span id="sec-r-and-rstudio-environment" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R and Rstudio environment</span></span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Paul Riesthuis </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">December 9, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -373,18 +405,297 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>This book is designed to serve as an accessible and practical introduction to <strong>R</strong>, aimed primarily at researchers and students who are new to the language. It begins with the fundamentals, providing clear guidance on how to get started, and gradually introduces more applied examples that are particularly relevant to psychological research.</p>
-<p>With the recent rise of <strong>large language models</strong> such as ChatGPT, many coding tasks have become easier and more efficient. Throughout this book, I offer practical recommendations on how researchers can responsibly and effectively use these tools to support coding, data analysis, and problem-solving, without sacrificing scientific rigor or understanding. This book is also made with help of large language models.</p>
-<p>A central focus of the book is to equip readers with the skills to conduct analyses that are frequently encountered in psychological research. Each chapter provides step-by-step examples, best practices, and insights into common challenges, so that readers can confidently apply R to their own research questions.</p>
-<p><img src="cover.png" class="img-fluid"></p>
-<p>I hope this book serves as a helpful guide for anyone looking to develop a solid foundation in R, while also embracing modern tools that enhance productivity and reproducibility in research.</p>
-<p>You can cite this resource as:</p>
-<p><strong>Riesthuis, P. (2025). <em>Introduction to data analyses in R</em>.</strong></p>
-<p>Paul Riesthuis</p>
+<section id="r-and-rstudio" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="r-and-rstudio"><span class="header-section-number">1.1</span> R and Rstudio</h2>
+<p>When I first started working with R, I remember being confused by the fact that many people recommended downloading both R and RStudio. I didn’t fully understand why RStudio was necessary.</p>
+<p>The simplest way to think about it is that RStudio is a convenient interface (an IDE) that makes it easier to write, run, and manage your R code. You use R as the underlying language, and RStudio as the environment that helps you work with that language more effectively.</p>
+<p>The Rstudio looks as follows: <img src="rstudio_interface.jpeg" class="img-fluid" alt="Rstudio Classic Interface"></p>
+<p>The RStudio interface is divided into <strong>four main sections</strong> that help you write, run, and manage your R code efficiently:</p>
+<ol type="1">
+<li><strong>Source</strong></li>
+</ol>
+<ul>
+<li>This is where you write and edit your R scripts or Quarto documents.</li>
+<li>Think of it like a “text editor” for your code.</li>
+<li>You can save your scripts, organize your work, and run lines or sections of code from here.</li>
+</ul>
+<ol start="2" type="1">
+<li><strong>Console</strong></li>
+</ol>
+<ul>
+<li>This is where R actually executes your code.</li>
+<li>You can type commands directly and see immediate results.</li>
+<li>It’s perfect for testing small pieces of code or quickly checking something.</li>
+</ul>
+<ol start="3" type="1">
+<li><strong>Environment</strong></li>
+</ol>
+<ul>
+<li>This section shows all the variables, data frames, and objects currently stored in your R session.</li>
+<li>It helps you keep track of what data and results you have available.</li>
+<li>Some tabs also show your command history, so you can easily reuse previous commands.</li>
+</ul>
+<ol start="4" type="1">
+<li><strong>Output</strong></li>
+</ol>
+<ul>
+<li>This section displays plots, graphs, and other outputs generated by your code.</li>
+<li>It also includes tabs for files, packages, help, and viewer windows.</li>
+<li>You can inspect your results visually and navigate your project files from here.</li>
+</ul>
+<p><strong>Summarized</strong>:</p>
+<p>A simple way to remember the sections:</p>
+<ol type="1">
+<li><strong>Source</strong> → write code</li>
+<li><strong>Console</strong> → run code</li>
+<li><strong>Environment</strong> → see your variables</li>
+<li><strong>Output</strong> → see results and plots</li>
+</ol>
+</section>
+<section id="sec-coding" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="sec-coding"><span class="header-section-number">1.2</span> Coding</h2>
+<p>So, in the source section we can actually code variables. The possibilities here are endless. That is, we can code a single number to be assigned to a variable name “y” but also conduct entire structural equation models, multilevel models, etc. Let’s start with some basics and most essential.</p>
+<section id="sec-example-1-variable-with-single-number" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="sec-example-1-variable-with-single-number"><span class="header-section-number">1.2.1</span> Example 1: Variable with single number</h3>
+<ul>
+<li><p>In R we use “&lt;-” instead of “=” to assign variables.</p></li>
+<li><p>You can copy code always by clicking the icon in the upper right of the code chunk.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">7</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+</div>
+<p><strong>Tip</strong>: You can run code by selecting a line and pressing <strong>Ctrl + Enter</strong> (Windows) or <strong>Cmd + Enter</strong> (Mac).</p>
+</section>
+<section id="sec-example-2-variable-with-multiple-numbers" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="sec-example-2-variable-with-multiple-numbers"><span class="header-section-number">1.2.2</span> Example 2: Variable with multiple numbers</h3>
+<p>This is also known as a <strong>single row vector</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>row_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>row_vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-example-3-row-vs-column-vectors" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="sec-example-3-row-vs-column-vectors"><span class="header-section-number">1.2.3</span> Example 3: row vs column vectors</h3>
+<p>In R, the vectors we create are <strong>row vectors</strong> by default. Sometimes, it’s useful to create a <strong>column vector</strong> (a vector arranged vertically), especially when working with matrices or data frames.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>col_vec <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>col_vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    1
+[2,]    2
+[3,]    3
+[4,]    4
+[5,]    5</code></pre>
+</div>
+</div>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><strong>Row vector:</strong> A simple vector created with <code>c()</code>; elements are arranged horizontally when printed.</li>
+<li><strong>Column vector:</strong> Created using <code>matrix()</code> with <code>ncol = 1</code>; elements are arranged vertically.</li>
+<li>Vectors are the <strong>building blocks</strong> for matrices and data frames in R.</li>
+<li><strong>Tip</strong>: In psychological research, a <strong>column often represents a variable</strong> (e.g., Age, Score) and a <strong>row represents a participant</strong>.</li>
+</ul>
+</section>
+<section id="sec-example-4-dataframes" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="sec-example-4-dataframes"><span class="header-section-number">1.2.4</span> Example 4: Dataframes</h3>
+<p>A <strong>data frame</strong> is like a table in R. It can store <strong>columns of different types</strong> (numeric, character, logical) and is one of the most common ways to organize data for analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">22</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">Passed =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Name Age Passed
+1   Alice  25   TRUE
+2     Bob  30  FALSE
+3 Charlie  22   TRUE</code></pre>
+</div>
+</div>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>data.frame()</code> creates a table-like structures</li>
+<li>Columns can have <strong>different types</strong> (numbers, text, logical values).</li>
+</ul>
+</section>
+<section id="sec-example-5-accessing-and-subsetting-data" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="sec-example-5-accessing-and-subsetting-data"><span class="header-section-number">1.2.5</span> Example 5: <strong>Accessing and Subsetting Data</strong></h3>
+<ul>
+<li>You can access columns of a dataframe with <code>$</code>, e.g., <code>df$Age</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25 30 22</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Passed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE  TRUE</code></pre>
+</div>
+</div>
+<p>Each column is treated as a vector, so you can perform operations on it just like a normal vector.</p>
+<ul>
+<li>You can access rows using <strong>row indices</strong>, e.g., <code>df[1, ]</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">1</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Name Age Passed
+1 Alice  25   TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">2</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Name Age Passed
+2  Bob  30  FALSE</code></pre>
+</div>
+</div>
+<p>The syntax is df[row, column]. Leaving the column blank selects all columns (or vice versa).</p>
+<ul>
+<li>You can filter rows using logical conditions. For example, to select all participants who passed:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>Passed <span class="sc">==</span> <span class="cn">TRUE</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Name Age Passed
+1   Alice  25   TRUE
+3 Charlie  22   TRUE</code></pre>
+</div>
+</div>
+<p>Some useful logical operators in R:</p>
+<ul>
+<li>== → equal to</li>
+<li>!= → not equal to</li>
+<li>&gt; → greater than</li>
+<li>&lt; → less than</li>
+<li>&gt;= → greater than or equal to</li>
+<li>&lt;= → less than or equal to</li>
+<li>&amp; → AND</li>
+<li>| → OR</li>
+</ul>
+<p>Example: Select participants who passed or are older than 25:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>Passed <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span> df<span class="sc">$</span>Age <span class="sc">&gt;</span> <span class="dv">24</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Name Age Passed
+1 Alice  25   TRUE</code></pre>
+</div>
+</div>
+<p>There are also packages in R that others have created that also perform these data manipulations but also more advanced such as “<strong>dplyr</strong>”.</p>
+<ul>
+<li>For example, we can <strong>select</strong> Age or Passed columns:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(dplyr) # Run the code before without "#" to install the package</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># This is to call the packages</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">select</span>(Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Age
+1  25
+2  30
+3  22</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">select</span>(Passed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Passed
+1   TRUE
+2  FALSE
+3   TRUE</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Or we can <strong>filter</strong> only participants who passed the test:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Passed <span class="sc">==</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Name Age Passed
+1   Alice  25   TRUE
+2 Charlie  22   TRUE</code></pre>
+</div>
+</div></li>
+<li><p>Or <strong>select</strong> and <strong>filter</strong> simultaneously for which we need “%&gt;%” (pipe) operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(Passed <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(Name, Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Name Age
+1   Alice  25
+2 Charlie  22</code></pre>
+</div>
+</div></li>
+</ul>
+<p><strong>Why dplyr is useful:</strong></p>
+<ul>
+<li>Syntax is <strong>more readable</strong> than base R, especially for beginners.</li>
+<li>You can <strong>chain multiple operations</strong> with <code>%&gt;%</code>, which makes your code look like a step-by-step pipeline.</li>
+<li>Works well for <strong>larger datasets</strong> and more complex filtering.</li>
+</ul>
+<p>There are many powerful functions in dplyr, and we’ll explore them gradually throughout the book. However, tools like large language models can be extremely helpful when you want to automate your workflow. You can simply describe—in plain language—what you want to do (e.g., “filter rows where Age is above 30 and select only the Name column”), and the model can generate the corresponding R code for you.</p>
+</section>
+<section id="sec-example-6-descriptive-statistics" class="level3" data-number="1.2.6">
+<h3 data-number="1.2.6" class="anchored" data-anchor-id="sec-example-6-descriptive-statistics"><span class="header-section-number">1.2.6</span> Example 6: <strong>Descriptive statistics</strong></h3>
+<p>It is also quite easy to compute <strong>mean, median, standard deviation</strong> or other statistics:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25.66667</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(df<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(df<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.041452</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Name                Age          Passed       
+ Length:3           Min.   :22.00   Mode :logical  
+ Class :character   1st Qu.:23.50   FALSE:1        
+ Mode  :character   Median :25.00   TRUE :2        
+                    Mean   :25.67                  
+                    3rd Qu.:27.50                  
+                    Max.   :30.00                  </code></pre>
+</div>
+</div>
+<p>There are also packages that will automatically summarise your data and provide additional information such as “<strong>psych</strong>”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(psych) # Run the code before without "#" to install the package</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning -Inf</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       vars n  mean   sd median trimmed  mad min  max range skew kurtosis   se
+Name*     1 3  2.00 1.00      2    2.00 1.48   1    3     2 0.00    -2.33 0.58
+Age       2 3 25.67 4.04     25   25.67 4.45  22   30     8 0.16    -2.33 2.33
+Passed    3 3   NaN   NA     NA     NaN   NA Inf -Inf  -Inf   NA       NA   NA</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-summary-and-conclusion" class="level3" data-number="1.2.7">
+<h3 data-number="1.2.7" class="anchored" data-anchor-id="sec-summary-and-conclusion"><span class="header-section-number">1.2.7</span> Summary and conclusion</h3>
+<p>In this introductory chapter, we explored the basic structure and functionality of R and RStudio. You learned how the main interface is organized, how to write and run simple pieces of code, and how to create and manipulate some of the most fundamental data structures in R, such as vectors and data frames. We also introduced essential tools for inspecting and filtering data, both using base R and the more readable dplyr syntax. These skills form the foundation of nearly all data analysis work in R. In the next chapter, we will build on this foundation by working with a real dataset—importing it, exploring it, and preparing it for analysis—so you can see how these tools apply to actual research scenarios.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -802,10 +1113,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapter1.html" class="pagination-link" aria-label="R and Rstudio environment">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R and Rstudio environment</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./chapter2.html" class="pagination-link" aria-label="Packages">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Packages</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
