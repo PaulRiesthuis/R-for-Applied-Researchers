@@ -1,0 +1,60 @@
+{
+    "entries": [
+        {
+            "file": "chapter1.qmd",
+            "type": "sec",
+            "id": "coding",
+            "suffix": "",
+            "title": "Coding"
+        },
+        {
+            "file": "chapter1.qmd",
+            "type": "sec",
+            "id": "summary-and-conclusion",
+            "suffix": "",
+            "title": "Summary and conclusion"
+        },
+        {
+            "file": "chapter1.qmd",
+            "type": "sec",
+            "id": "example-5-accessing-and-subsetting-data",
+            "suffix": "",
+            "title": "Example 5: Accessing and Subsetting Data"
+        },
+        {
+            "file": "chapter1.qmd",
+            "type": "sec",
+            "id": "example-4-dataframes",
+            "suffix": "",
+            "title": "Example 4: Dataframes"
+        },
+        {
+            "file": "chapter1.qmd",
+            "type": "sec",
+            "id": "r-and-rstudio-environment",
+            "suffix": "",
+            "title": "R and Rstudio environment"
+        },
+        {
+            "file": "chapter1.qmd",
+            "type": "sec",
+            "id": "example-3-row-vs-column-vectors",
+            "suffix": "",
+            "title": "Example 3: row vs column vectors"
+        },
+        {
+            "file": "chapter1.qmd",
+            "type": "sec",
+            "id": "example-1-variable-with-single-number",
+            "suffix": "",
+            "title": "Example 1: Variable with single number"
+        },
+        {
+            "file": "chapter1.qmd",
+            "type": "sec",
+            "id": "example-2-variable-with-multiple-numbers",
+            "suffix": "",
+            "title": "Example 2: Variable with multiple numbers"
+        }
+    ]
+}

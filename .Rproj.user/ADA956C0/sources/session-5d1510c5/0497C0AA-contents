@@ -1,0 +1,29 @@
+project:
+  type: book
+
+book:
+  title: "Rstats"
+  author: "Paul Riesthuis"
+  date: "9/12/2025"
+  search: true
+  downloads: [pdf, epub]
+  chapters:
+    - index.qmd
+    - chapter1.qmd
+    - summary.qmd
+    - references.qmd
+  sidebar:
+    style: docked
+    background: light
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

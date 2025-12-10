@@ -1,0 +1,31 @@
+project:
+  type: book
+
+book:
+  title: "Introduction to R for Data Analysis"
+  author: "Paul Riesthuis"
+  date: "12/9/2025"
+  search: true
+  downloads: [pdf, epub]
+  chapters:
+    - index.qmd
+    - chapter1.qmd
+    - chapter2.qmd
+    - chapter3.qmd
+    - references.qmd
+  sidebar:
+    style: docked
+    background: light
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
