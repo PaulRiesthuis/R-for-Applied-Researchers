@@ -12,7 +12,7 @@ By the end of this chapter, you will be able to:
 
 -   perform basic data cleaning and wrangling
 
--   run simple summaries and initial analyses
+-   run simple visualization, summaries, and initial analyses
 
 These skills form the foundation for all subsequent chapters. Once you are comfortable importing and working with real datasets, you will be ready to move on to more advanced analyses and data visualizations.
 
@@ -395,12 +395,6 @@ nullInterval = c(-Inf, 0) # directional test: strong-incentive < weak-incentive
 bf_belief
 ```
 
-Interpretation:
-
--   A Bayes factor (BF10) greater than 1 indicates evidence for the alternative hypothesis (strong-incentive \< weak-incentive).
-
--A BF10 less than 1 indicates evidence for the null hypothesis.
-
 #### Frequentist t-test
 
 ```{r}
@@ -443,8 +437,8 @@ bf_mem
 ```{r}
 # Frequentist t-test for memory scores
 ttest_mem <- t.test(
-  x = df_analysis$overall_belief[df_analysis$condition=="Unlikely Cheating"],
-  y = df_analysis$overall_belief[df_analysis$condition=="Likely Cheating"],
+  x = df_analysis$total_memory_errors[df_analysis$condition=="Unlikely Cheating"],
+  y = df_analysis$total_memory_errors[df_analysis$condition=="Likely Cheating"],
   paired = FALSE,
   var.equal = FALSE,
   alternative = "greater"
