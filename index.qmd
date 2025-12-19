@@ -6,7 +6,7 @@ With the recent rise of **large language models** such as ChatGPT, many coding t
 
 A central focus of the book is to equip readers with the skills to conduct analyses that are frequently encountered in psychological research. Each chapter provides step-by-step examples, best practices, and insights into common challenges, so that readers can confidently apply R to their own research questions.
 
-![](cover.png)
+![](images/cover.jpg)
 
 I hope this book serves as a helpful guide for anyone looking to develop a solid foundation in R, while also embracing modern tools that enhance productivity and reproducibility in research.
 

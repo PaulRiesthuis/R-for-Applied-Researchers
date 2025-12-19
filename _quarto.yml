@@ -1,5 +1,8 @@
 project:
   type: book
+  output-dir: docs
+  resources:
+    - images/
 
 book:
   title: "Introduction to R for Data Analysis"
@@ -24,8 +27,11 @@ format:
     theme:
       light: flatly
       dark: darkly
+
   pdf:
     documentclass: scrreprt
+    pdf-engine: lualatex   # <-- important
+
+  epub: default
 
 editor: visual
-

@@ -20,7 +20,7 @@ Base R already includes many useful functions, such as creating variables, worki
 
 Earlier, we briefly introduced the **`dplyr`** package for data manipulation. Let’s now formally look at how to install and load packages.
 
-### **Installing a package from CRAN**
+### Installing a package from CRAN
 
 CRAN (the Comprehensive R Archive Network) is the main place where R packages are stored. To install a package from CRAN, you run:
 
@@ -30,18 +30,18 @@ install.packages("dplyr")
 
 -   You only need to install a package **once** on your computer (unless you update or reinstall R).
 
-## **Installing packages from GitHub**
+## Installing packages from GitHub
 
 Not all packages are available on CRAN. Many developers share their newest or experimental work on **GitHub**. To install these packages, you first need the `devtools` package.
 
-### **Step 1: Install and load devtools**
+### Step 1: Install and load devtools
 
 ```{r,  eval=F}
 install.packages("devtools") 
 library(devtools) 
 ```
 
-### **Step 2: Install a package from GitHub**
+### Step 2: Install a package from GitHub
 
 The syntax is:
 
@@ -63,7 +63,7 @@ GitHub installations are useful when:
 
 -   or the author hasn’t uploaded it to CRAN yet
 
-## **Loading a package**
+## Loading a package
 
 After installation, you need to *load* the package each time you start a new R session:
 
@@ -73,32 +73,32 @@ library(dplyr)
 
 Once a package is loaded, all of its functions become available for use. @riesthuis_simulation-based_2024
 
-## **Using a package**
+## Using a package
 
 Once a package is loaded with `library()`, you can immediately start using its functions. Most packages are organized around a specific purpose. Some of the most used packages are:
 
-### **Data manipulation and cleaning**
+### Data manipulation and cleaning
 
 -   **dplyr** – grammar of data manipulation (filtering, selecting, grouping)
 -   **tidyr** – reshaping and organizing data (pivoting, separating, unnesting)
 -   **stringr** – working with text data (string detection, replacement, cleaning)
 -   **tidyverse** – Loading `tidyverse` loads `dplyr`, `tidyr`, `stringr`, and other core packages at once.
 
-### **Data importing**
+### Data importing
 
 -   **readr** – fast reading of CSV and text files
 -   **readxl** – import Excel files (e.g., `.xls` and `.xlsx`)
 -   **haven** – import SPSS, Stata, and SAS data
 -   **rvest** – downloading or scraping data from the web
 
-### **Data visualization**
+### Data visualization
 
 -   **ggplot2** – the most widely used visualization system in R
 -   **patchwork** – combine multiple ggplots into one figure
 -   **ggthemes** – additional themes and styles for ggplot2
 -   **plotly** – make interactive plots based on ggplot2
 
-### **Data analysis and statistics**
+### Data analysis and statistics
 
 -   **lme4** – mixed-effects models
 -   **psych** – descriptive statistics and psychometric tools
@@ -120,7 +120,7 @@ Once a package is loaded with `library()`, you can immediately start using its f
 -   **ROCpower** – power analyses for Receiver Operating Characteristic curves
 -   **pwr** – traditional analytical power calculations for t-tests, ANOVA, correlations, proportions, etc.
 
-### **Reporting and reproducibility**
+### Reporting and reproducibility
 
 -   **knitr** – knitting R Markdown and Quarto documents
 -   **rmarkdown** / **quarto** – reproducible reports and documents
@@ -151,7 +151,7 @@ If you want to use a function **without loading the entire package**, you can ca
 dplyr::filter(df, Passed == TRUE)
 ```
 
-## **Getting help for a package**
+## Getting help for a package
 
 R includes extensive documentation for every package and every function.
 
@@ -176,6 +176,6 @@ help(package = "dplyr")
 
 ```
 
-## **Summary**
+## Summary
 
 In this chapter, we learned how to install and load R packages, explored some of the most commonly used packages for data manipulation, visualization, analysis, and reporting, and learned how to access help and call functions. Packages are a core part of R’s power, and you will continue to encounter and use many more throughout the book. With these tools in hand, you are ready to move on to working with **real datasets** and applying your skills in practical research analyses.

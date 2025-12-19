@@ -1,17 +1,370 @@
 # Real dataset {#sec-real-dataset}
 
-In the previous chapter, we learned how to install, load, and use R packages. These tools will be essential as we begin working with actual datasets.
+In the previous chapter, we learned how to install, load, and use R packages. These tools are essential for real-world data analysis, and now we will start applying them in practice.
 
-In this chapter, we take the next step: we will **work with a real dataset in R**, explore and inspect it, and perform some initial data cleaning and analysis. Working with real data is an important milestone because it allows you to apply the skills you’ve learned so far—creating variables, manipulating data structures, and using packages—in a practical research context.
+In this chapter, we take the next step: working with a real dataset in R. We will learn how to import data, inspect its structure, clean and prepare it, and perform the first simple analyses. Working with real data is an important milestone because it brings together all the skills you’ve learned so far—creating variables, manipulating data, and using packages—in a practical research context.
 
 By the end of this chapter, you will be able to:
 
--   Import data from various sources (e.g., CSV, Excel)
+-   import data from various sources (e.g., CSV, Excel)
 
--   Inspect and explore the dataset to understand its structure
+-   inspect and explore a dataset to understand its structure
 
--   Perform basic data cleaning and preparation
+-   perform basic data cleaning and wrangling
 
--   Apply simple data analysis and summaries
+-   run simple summaries and initial analyses
 
-This chapter lays the foundation for all subsequent analyses in the book. Once you are comfortable importing and working with real datasets, you will be ready to conduct more advanced analyses and visualizations in later chapters.
+These skills form the foundation for all subsequent chapters. Once you are comfortable importing and working with real datasets, you will be ready to move on to more advanced analyses and data visualizations.
+
+## Dataset
+
+To start working with a real dataset, I will use my own data of my own study [Registered Report: The effects of incentivized lies on memory](https://doi.org/10.1002/acp.3986). In this study, participants (n = 230) were randomly assigned to one of two conditions:
+
+-   **strong-incentive to cheat**
+
+-   **weak-incentive to cheat**
+
+Participants completed an adapted *Sequential Dyadic Die-Rolling* paradigm, where they rolled a die and reported its outcome. Depending on the condition:
+
+-   In the **strong-incentive** condition, lying helped participants avoid a financial penalty.
+
+-   In the **weak-incentive** condition, lying produced a prosocial outcome (a benefit for an unknown other).
+
+Two days later, participants completed two forms of memory assessment:
+
+1.  **Six questions from the Autobiographical Memory Questionnaire**
+
+```         
+-   Each rated on a 7-point Likert scale
+```
+
+2.  **Memory for the die rolls**
+
+We will use this dataset to demonstrate the workflow for importing, viewing, and preparing data for analysis.
+
+## Load in data
+
+To load the dataset, we first need the **readxl** package, which allows R to import Excel files:
+
+```{r, message =F}
+library(readxl)
+```
+
+Since the data is stored in an Excel `.xlsx` file, we will use `read_xlsx()` to import it:
+
+```{r}
+df_original <- read_xlsx("Final Data Analysis.xlsx")
+```
+
+**Tip:**\
+It’s helpful to keep the imported dataset untouched under a name like `df_original`. This allows you to return to the clean version easily if mistakes happen during data cleaning or transformation.
+
+## Viewing the data
+
+The first step in any data-analysis workflow is to inspect the imported dataset—both to confirm that it loaded correctly and to understand how it is structured.
+
+You can open it in RStudio’s spreadsheet viewer using:
+
+```{r}
+View(df_original)
+```
+
+To preview only the first few rows:
+
+```{r}
+head(df_original)
+```
+
+At this stage, you may notice that:
+
+-   the dataset contains **many columns not relevant for analysis**
+-   many variable names contain **spaces or special characters**, which complicates coding
+-   To address this, we will clean the column names.
+
+## Cleaning column names
+
+The **janitor** package provides a simple function, `clean_names()`, that automatically:
+
+-   removes spaces and special characters
+-   converts names to snake_case
+-   ensures names are syntactically valid
+
+```{r, message=F, warning =F}
+library(janitor)
+df_original <- df_original %>% 
+  clean_names()
+```
+
+This is especially useful for survey data exported from platforms like **Qualtrics**, which often produce long and messy column names.
+
+## Removing inattentive participants
+
+When inspecting the dataset, you may have noticed that it contains **243 rows**, corresponding to **243 participants**. However, the final sample reported in the article consists of **230 participants**. The difference is due to the exclusion of participants who did not pass the attention checks.
+
+The variable `attention` indicates how many attention checks each participant failed. Following the procedure described in the article, we exclude participants who failed **more than three** attention checks.
+
+To keep the original dataset intact, we create a new dataset (`df_analysis`) using **dplyr** that excludes these participants:
+
+```{r}
+# Create a new dataset while keeping the original data unchanged
+df_analysis <- df_original %>% 
+  dplyr::filter(attention <= 3)
+
+# Check the number of remaining participants
+nrow(df_analysis)
+
+```
+
+After this step, we are left with **230 rows (participants)**, which matches the sample size reported in the article.
+
+## Selecting relevant variables
+
+Next, we select the variables needed for our analysis using **dplyr**, rename the fourth question:
+
+```{r, message =F}
+library(dplyr)
+df_analysis <- df_analysis %>%
+  select(participants,
+         condition,
+         subcondition_2,
+         x1_as_i_think_about_the_task_i_can_actually_remember_it,
+         x2_as_i_remember_the_task_i_can_feel_now_the_emotions_that_i_felt_then,
+         x3_overall_i_remember_this_event,
+         reverse_coded_question_4,
+         x5_i_remember_how_i_felt_at_the_time_i_just_recalled,
+         x6_i_remember_what_i_thought_at_the_time_of_the_event_i_just_recalled,
+         total_memory_errors)
+
+df_analysis <- df_analysis %>%
+  rename(
+    x4_reverse_coded_question_4 = reverse_coded_question_4
+  )
+
+head(df_analysis)
+```
+
+In this study, they also created an **overall belief score** by averaging six individual memory and belief items which we can do with **dplyr**. We compute the overall belief score as the row-wise mean of the six relevant variables. Missing values are ignored using na.rm = TRUE.
+
+```{r}
+# Create overall belief score
+df_analysis <- df_analysis %>% 
+  mutate(
+    overall_belief = rowMeans(
+      select(
+        .,
+        x1_as_i_think_about_the_task_i_can_actually_remember_it,
+        x2_as_i_remember_the_task_i_can_feel_now_the_emotions_that_i_felt_then,
+        x3_overall_i_remember_this_event,
+        x4_reverse_coded_question_4,
+        x5_i_remember_how_i_felt_at_the_time_i_just_recalled,
+        x6_i_remember_what_i_thought_at_the_time_of_the_event_i_just_recalled
+      ),
+      na.rm = TRUE
+    )
+  )
+
+```
+
+Then we can put this together in a searchable table using the package **reactable**:
+
+```{r, message=F}
+library(reactable)
+
+reactable(
+  df_analysis,
+  searchable = TRUE,
+  pagination = TRUE,
+  defaultPageSize = 5,
+  highlight = TRUE
+)
+```
+
+This allows readers to scroll, search, and browse the data directly in a clean table format.
+
+## Data visualization
+
+Now that we have a cleaned dataset, we can start exploring it visually. Visualization is an essential step in data analysis because it allows us to **understand patterns, spot outliers, and communicate results clearly**.
+
+### Belief and recollection overall
+
+First, we will visualize the overall belief and recollection scores. These scores combine responses from six memory questions. We use ggplot2 for flexible plotting:
+
+```{r, warning =F, message=F}
+library(ggplot2)
+library(ThemePark)
+# Plot
+plot_belief <- ggplot(df_analysis, aes(x = condition, y = overall_belief, fill = condition)) +
+  geom_jitter(
+    width = 0.15,
+    alpha = 0.5,
+    size = 2,
+    shape = 21,
+    color = "black"
+  ) +
+  scale_y_continuous(
+    limits = c(1, 7),
+    breaks = 1:7
+  ) +
+  labs(
+    y = "Belief and Recollection Score",
+    x = NULL
+  ) +
+  theme_barbie() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 16),
+    axis.title.y = element_text(size = 18),
+    panel.grid = element_blank()
+  )
+
+plot_belief
+
+```
+
+-   geom_jitter spreads points horizontally so overlapping points are visible
+-   The plot shows individual participant scores as well as the overall pattern by condition
+-   theme_babie is from **ThemePark** where many other cool themes are available
+
+You can also use **ggstatsplot** for plots with built-in statistical summaries:
+
+```{r, message= F, warning=F}
+library(ggstatsplot)
+
+ggbetweenstats(
+  data  = df_analysis,
+  x     = condition,
+  y     = overall_belief,
+)
+```
+
+### Belief and recollection individual
+
+Sometimes, it’s useful to examine each question separately instead of combining them into a single overall score. To do this, we need to **reshape the dataset from wide to long format**.
+
+In **wide format**, each participant has a single row, with responses to different questions stored in separate columns (e.g., x1 to x6). In **long format**, each row represents one participant’s response to a single question. As a result, each participant contributes multiple rows — one for each question.
+
+Reshaping data in this way is typical when working with **multilevel models** (also called hierarchical linear models or linear mixed models), where each observation (row) represents a participant-item combination. Long-format datasets also make it easier to generate **faceted plots**, apply **grouped summaries**, or run analyses that consider responses at the item level.
+
+R provides convenient functions for switching between formats: **`pivot_longer()`** converts wide data to long, and **`pivot_wider()`** converts long data back to wide. Mastering these functions allows you to easily manipulate your dataset depending on the type of analysis or visualization you want to perform.
+
+In our dataset, reshaping to long format will result in **six rows per participant** — one for each question. Once in this format, we can create plots that show responses to each question across conditions, which provides a more detailed view of the data compared with the overall score.
+
+```{r}
+library(tidyr)
+df_long <- df_analysis %>%
+  pivot_longer(
+    cols = starts_with("x"),
+    names_to = "question",
+    values_to = "score"
+  )
+
+head(df_long,12)
+```
+
+Now, each participant has six rows — one per question — making it easy to create faceted plots:
+
+```{r, message= F, message = F}
+ggplot(df_long, aes(x = condition, y = score, fill = condition)) +
+  geom_jitter(width = 0.15, alpha = 0.5, size = 2, shape = 21, color = "black") +
+  facet_wrap(~question, 
+             scales = "free_y") +
+  labs(y = "Score", 
+       x = NULL) +
+  theme_barbie(base_size = 14) +
+  theme(legend.position = "none", 
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1))
+
+```
+
+-   Each panel corresponds to one question
+-   **`scales = "free_y"`** allows each question’s responses to use its own y-axis, making patterns easier to see
+
+### Memory errors
+
+For completeness, we can visualize the **total memory errors**:
+
+```{r}
+ggbetweenstats(
+  data  = df_analysis,
+  x     = condition,
+  y     = total_memory_errors,
+)
+```
+
+## Data analysis
+
+After exploring the data visually, the next step is to summarize and analyze it quantitatively. A common first step in any analysis workflow is to examine descriptive statistics, which help us understand the overall patterns in the data, detect potential issues, and prepare for more advanced analyses.
+
+### Descriptive statistics
+
+In the following code, we will extract the sample size, mean, and standard deviation per group for all variables of interest in our dataset.
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# Specify the numeric variables you want to summarize
+numeric_vars <- c(
+  "x1_as_i_think_about_the_task_i_can_actually_remember_it",
+  "x2_as_i_remember_the_task_i_can_feel_now_the_emotions_that_i_felt_then",
+  "x3_overall_i_remember_this_event",
+  "x4_reverse_coded_question_4",
+  "x5_i_remember_how_i_felt_at_the_time_i_just_recalled",
+  "x6_i_remember_what_i_thought_at_the_time_of_the_event_i_just_recalled",
+  "total_memory_errors",
+  "overall_belief"
+)
+
+# Summary table
+summary_table <- df_analysis %>%
+  group_by(condition) %>%
+  summarise(
+    N = n(),
+    across(
+      all_of(numeric_vars),
+      list(
+        Mean = ~mean(.x, na.rm = TRUE),
+        SD = ~sd(.x, na.rm = TRUE)
+      ),
+      .names = "{.col}_{.fn}"
+    ),
+    .groups = "drop"
+  )
+
+# View table
+summary_table
+```
+
+-   Each row corresponds to a condition
+
+-   `N` is the number of participants per condition.
+
+-   Columns ending with `_Mean` or `_SD` show the mean and standard deviation for each variable.
+
+    Optional: For an interactive table in an HTML document or Shiny app, you can use **reactable**:
+
+    ```{r}
+    reactable(summary_table)
+    ```
+
+### Inferential statistics
+
+In the article, they conducted several analyses such as assessing the internal consistency among the AMQ score via Cronbach's alpha and McDonald's Omega. We can easily do this in R:
+
+```{r, message= F, warning=F}
+items <- df_analysis %>%
+  select(
+    x1_as_i_think_about_the_task_i_can_actually_remember_it,
+    x2_as_i_remember_the_task_i_can_feel_now_the_emotions_that_i_felt_then,
+    x3_overall_i_remember_this_event,
+    x4_reverse_coded_question_4,
+    x5_i_remember_how_i_felt_at_the_time_i_just_recalled,
+    x6_i_remember_what_i_thought_at_the_time_of_the_event_i_just_recalled
+  )
+alpha_result <- psych::alpha(items)
+alpha_result$total$raw_alpha
+
+omega_result <- psych::omega(items, nfactors = 1)
+omega_result$omega_h
+```

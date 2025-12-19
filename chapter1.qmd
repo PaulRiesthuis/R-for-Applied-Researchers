@@ -6,7 +6,7 @@ When I first started working with R, I remember being confused by the fact that 
 
 The simplest way to think about it is that RStudio is a convenient interface (an IDE) that makes it easier to write, run, and manage your R code. You use R as the underlying language, and RStudio as the environment that helps you work with that language more effectively.
 
-The Rstudio looks as follows: ![Rstudio Classic Interface](rstudio_interface.jpeg)
+The Rstudio looks as follows: ![Rstudio Classic Interface](images/rstudio_interface.jpeg)
 
 The RStudio interface is divided into **four main sections** that help you write, run, and manage your R code efficiently:
 
@@ -105,7 +105,7 @@ df
 -   `data.frame()` creates a table-like structures
 -   Columns can have **different types** (numbers, text, logical values).
 
-### Example 5: **Accessing and Subsetting Data** {#sec-example-5-accessing-and-subsetting-data}
+### Example 5: Accessing and Subsetting Data {#sec-example-5-accessing-and-subsetting-data}
 
 -   You can access columns of a dataframe with `$`, e.g., `df$Age`.
 
@@ -182,7 +182,7 @@ df %>% select(Passed)
 
 There are many powerful functions in dplyr, and we’ll explore them gradually throughout the book. However, tools like large language models can be extremely helpful when you want to automate your workflow. You can simply describe—in plain language—what you want to do (e.g., “filter rows where Age is above 30 and select only the Name column”), and the model can generate the corresponding R code for you.
 
-### Example 6: **Descriptive statistics** {#sec-example-6-descriptive-statistics}
+### Example 6: Descriptive statistics {#sec-example-6-descriptive-statistics}
 
 It is also quite easy to compute **mean, median, standard deviation** or other statistics:
 

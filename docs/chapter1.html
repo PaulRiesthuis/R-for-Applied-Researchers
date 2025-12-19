@@ -375,8 +375,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-example-2-variable-with-multiple-numbers" id="toc-sec-example-2-variable-with-multiple-numbers" class="nav-link" data-scroll-target="#sec-example-2-variable-with-multiple-numbers"><span class="header-section-number">1.2.2</span> Example 2: Variable with multiple numbers</a></li>
   <li><a href="#sec-example-3-row-vs-column-vectors" id="toc-sec-example-3-row-vs-column-vectors" class="nav-link" data-scroll-target="#sec-example-3-row-vs-column-vectors"><span class="header-section-number">1.2.3</span> Example 3: row vs column vectors</a></li>
   <li><a href="#sec-example-4-dataframes" id="toc-sec-example-4-dataframes" class="nav-link" data-scroll-target="#sec-example-4-dataframes"><span class="header-section-number">1.2.4</span> Example 4: Dataframes</a></li>
-  <li><a href="#sec-example-5-accessing-and-subsetting-data" id="toc-sec-example-5-accessing-and-subsetting-data" class="nav-link" data-scroll-target="#sec-example-5-accessing-and-subsetting-data"><span class="header-section-number">1.2.5</span> Example 5: <strong>Accessing and Subsetting Data</strong></a></li>
-  <li><a href="#sec-example-6-descriptive-statistics" id="toc-sec-example-6-descriptive-statistics" class="nav-link" data-scroll-target="#sec-example-6-descriptive-statistics"><span class="header-section-number">1.2.6</span> Example 6: <strong>Descriptive statistics</strong></a></li>
+  <li><a href="#sec-example-5-accessing-and-subsetting-data" id="toc-sec-example-5-accessing-and-subsetting-data" class="nav-link" data-scroll-target="#sec-example-5-accessing-and-subsetting-data"><span class="header-section-number">1.2.5</span> Example 5: Accessing and Subsetting Data</a></li>
+  <li><a href="#sec-example-6-descriptive-statistics" id="toc-sec-example-6-descriptive-statistics" class="nav-link" data-scroll-target="#sec-example-6-descriptive-statistics"><span class="header-section-number">1.2.6</span> Example 6: Descriptive statistics</a></li>
   <li><a href="#sec-summary-and-conclusion" id="toc-sec-summary-and-conclusion" class="nav-link" data-scroll-target="#sec-summary-and-conclusion"><span class="header-section-number">1.2.7</span> Summary and conclusion</a></li>
   </ul></li>
   </ul>
@@ -529,7 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 <section id="sec-example-5-accessing-and-subsetting-data" class="level3" data-number="1.2.5">
-<h3 data-number="1.2.5" class="anchored" data-anchor-id="sec-example-5-accessing-and-subsetting-data"><span class="header-section-number">1.2.5</span> Example 5: <strong>Accessing and Subsetting Data</strong></h3>
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="sec-example-5-accessing-and-subsetting-data"><span class="header-section-number">1.2.5</span> Example 5: Accessing and Subsetting Data</h3>
 <ul>
 <li>You can access columns of a dataframe with <code>$</code>, e.g., <code>df$Age</code>.</li>
 </ul>
@@ -596,16 +596,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(dplyr) # Run the code before without "#" to install the package</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># This is to call the packages</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">select</span>(Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># This is to call the packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">select</span>(Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Age
 1  25
 2  30
 3  22</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">select</span>(Passed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">select</span>(Passed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Passed
 1   TRUE
@@ -616,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>Or we can <strong>filter</strong> only participants who passed the test:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Passed <span class="sc">==</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Passed <span class="sc">==</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Name Age Passed
 1   Alice  25   TRUE
@@ -625,9 +627,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div></li>
 <li><p>Or <strong>select</strong> and <strong>filter</strong> simultaneously for which we need “%&gt;%” (pipe) operator:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(Passed <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(Name, Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(Passed <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(Name, Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Name Age
 1   Alice  25
@@ -644,22 +646,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>There are many powerful functions in dplyr, and we’ll explore them gradually throughout the book. However, tools like large language models can be extremely helpful when you want to automate your workflow. You can simply describe—in plain language—what you want to do (e.g., “filter rows where Age is above 30 and select only the Name column”), and the model can generate the corresponding R code for you.</p>
 </section>
 <section id="sec-example-6-descriptive-statistics" class="level3" data-number="1.2.6">
-<h3 data-number="1.2.6" class="anchored" data-anchor-id="sec-example-6-descriptive-statistics"><span class="header-section-number">1.2.6</span> Example 6: <strong>Descriptive statistics</strong></h3>
+<h3 data-number="1.2.6" class="anchored" data-anchor-id="sec-example-6-descriptive-statistics"><span class="header-section-number">1.2.6</span> Example 6: Descriptive statistics</h3>
 <p>It is also quite easy to compute <strong>mean, median, standard deviation</strong> or other statistics:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 25.66667</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(df<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(df<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 25</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(df<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(df<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.041452</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Name                Age          Passed       
  Length:3           Min.   :22.00   Mode :logical  
@@ -672,10 +674,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>There are also packages that will automatically summarise your data and provide additional information such as “<strong>psych</strong>”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(psych) # Run the code before without "#" to install the package</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(psych) # Run the code before without "#" to install the package</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning Inf</code></pre>
 </div>
