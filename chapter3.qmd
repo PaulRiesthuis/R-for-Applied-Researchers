@@ -451,3 +451,7 @@ ttest_mem
 ```{r}
 effectsize::effectsize(ttest_mem)
 ```
+
+## Summary
+
+In this chapter, we worked through a complete analysis workflow using a real research dataset, showing how to import, clean, and prepare data for analysis in R. We explored the data visually, created composite scores, examined reliability, and extracted descriptive statistics before testing the main hypotheses using both frequentist and Bayesian methods. Together, these steps demonstrate how raw data are transformed into interpretable results and provide a solid foundation for the more advanced analyses introduced in the next chapter.
