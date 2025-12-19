@@ -348,7 +348,7 @@ summary_table
     reactable(summary_table)
     ```
 
-### Inferential statistics
+### Internal consistency reliability
 
 In the article, they conducted several analyses such as assessing the internal consistency among the AMQ score via Cronbach's alpha and McDonald's Omega. We can easily do this in R:
 
@@ -367,4 +367,93 @@ alpha_result$total$raw_alpha
 
 omega_result <- psych::omega(items, nfactors = 1)
 omega_result$omega_h
+```
+
+## Inferential statistics
+
+We now turn to testing our main hypotheses:
+
+1.  **Belief and recollection scores:** Participants in the strong-incentive to cheat condition (Likely Cheating) are expected to have **lower belief and recollection scores** than those in the weak-incentive condition (Unlikely Cheating).
+
+2.  **Memory errors:** Participants in the strong-incentive condition are expected to have **more memory errors** than those in the weak-incentive condition.
+
+We will examine these hypotheses using both **Bayesian** and **frequentist** methods.
+
+### Belief and recollection scores
+
+#### Bayesian t-test (directional)
+
+```{r,message=F,warning=F}
+library(BayesFactor)
+bf_belief <- ttestBF(
+x = df_analysis$overall_belief[df_analysis$condition=="Unlikely Cheating"],
+y = df_analysis$overall_belief[df_analysis$condition=="Likely Cheating"],
+prior = "medium",
+nullInterval = c(-Inf, 0) # directional test: strong-incentive < weak-incentive
+)
+
+bf_belief
+```
+
+Interpretation:
+
+-   A Bayes factor (BF10) greater than 1 indicates evidence for the alternative hypothesis (strong-incentive \< weak-incentive).
+
+-A BF10 less than 1 indicates evidence for the null hypothesis.
+
+#### Frequentist t-test
+
+```{r}
+# Frequentist t-test for belief scores
+ttest_belief <- t.test(
+  x = df_analysis$overall_belief[df_analysis$condition=="Unlikely Cheating"],
+  y = df_analysis$overall_belief[df_analysis$condition=="Likely Cheating"],
+  paired = FALSE,
+  var.equal = FALSE,
+  alternative = "greater"
+)
+ttest_belief
+
+```
+
+#### Effect size
+
+```{r}
+effectsize::effectsize(ttest_belief)
+```
+
+### Memory errors
+
+#### Bayesian t-test (directional)
+
+```{r}
+library(BayesFactor)
+bf_mem <- ttestBF(
+x = df_analysis$total_memory_errors[df_analysis$condition=="Unlikely Cheating"],
+y = df_analysis$total_memory_errors[df_analysis$condition=="Likely Cheating"],
+prior = "medium",
+nullInterval = c(-Inf, 0) # directional test: strong-incentive < weak-incentive
+)
+
+bf_mem
+```
+
+#### Frequentist t-test
+
+```{r}
+# Frequentist t-test for memory scores
+ttest_mem <- t.test(
+  x = df_analysis$overall_belief[df_analysis$condition=="Unlikely Cheating"],
+  y = df_analysis$overall_belief[df_analysis$condition=="Likely Cheating"],
+  paired = FALSE,
+  var.equal = FALSE,
+  alternative = "greater"
+)
+ttest_mem
+```
+
+#### Effect size
+
+```{r}
+effectsize::effectsize(ttest_mem)
 ```
