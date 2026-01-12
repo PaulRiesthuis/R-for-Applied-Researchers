@@ -67,8 +67,7 @@ R is also an outstanding tool for data visualization. With packages such as **gg
 
 ```{r, message=F,warning=F}
 # Load package
-library(ggplot2
-        )
+library(ggplot2)
 # Simulate data
 sample_df <- data.frame(
   group = factor(rep(letters[1:3], each = 10)),
