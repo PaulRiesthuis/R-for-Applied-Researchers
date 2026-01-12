@@ -16,7 +16,7 @@ For example, here is an independent samples *t*-test with simulated data:
 
 ### Independent sample t-test
 
-```{r}
+```{r, message=F,warning=F}
 # Simulate data for 2 groups (Cohen's d of .5)
 g1 <- rnorm(100,1,2)
 g2 <- rnorm(100,2,2)
@@ -29,7 +29,7 @@ t.test(g1,g2)
 
 With a single line of code, it is possible conduct a linear mixed model (multilevel, hierarchical modeling, etc.):
 
-```{r}
+```{r, message=F,warning=F}
 # load package 
 library(lme4)
 library(flexplot)
@@ -45,7 +45,7 @@ summary(e)
 
 R also supports more advanced statistical models such as Item Response Theory:
 
-```{r}
+```{r, message=F,warning=F}
 # Load package
 library(mirt)
 
@@ -57,14 +57,15 @@ itemstats(data)
 (mod1 <- mirt(data, 1))
 
 # Plot IRT
-plot(mod1, type = 'trace')
+item_plot <- plot(mod1, type = 'trace')
+item_plot
 ```
 
 ## Data visualization
 
 R is also an outstanding tool for data visualization. With packages such as **ggplot2**, you can design clean, publication-ready figures and fully customize them. The range of available visualization packages is enormous, making it possible to create almost any kind of figure you can imagine.
 
-```{r}
+```{r, message=F,warning=F}
 # Load package
 library(ggplot2
         )
@@ -81,13 +82,15 @@ group_means_df <- setNames(
 )
 
 # Create plot
-ggplot(data = sample_df, mapping = aes(x = group, y = value)) +
+vis <- ggplot(data = sample_df, mapping = aes(x = group, y = value)) +
   geom_point() +
   geom_point(
     mapping = aes(y = group_mean), data = group_means_df,
     colour = 'red', size = 3
   )+
   theme_classic()
+
+vis
 ```
 
 ## Simulation
@@ -96,7 +99,7 @@ R also makes it easy to simulate data. This is extremely useful for teaching sta
 
 For example, using the **faux** package, we can simulate datasets with experimental designs:
 
-```{r}
+```{r, message=F,warning=F}
 library(faux)
 
 df <- sim_design(
@@ -122,14 +125,14 @@ Beyond statistics, R has a wide range of creative and practical tools. For examp
 
 -   Merge and automate documents
 
-    ```{r, eval=FALSE}
+    ```{r, eval=FALSE, message=F,warning=F}
     library(pdftools)
     pdf_combine(c("file1.pdf", "file2.pdf"), output = "merged.pdf")
     ```
 
 -   Create QR codes
 
-    ```{r, eval=FALSE}
+    ```{r, eval=FALSE, message=F,warning=F}
     library(qrcode)
     code <- qr_code("QR CODE")
     ```
