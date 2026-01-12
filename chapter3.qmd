@@ -1,457 +1,181 @@
-# Real dataset {#sec-real-dataset}
+# Packages {#sec-packages}
 
-In the previous chapter, we learned how to install, load, and use R packages. These tools are essential for real-world data analysis, and now we will start applying them in practice.
+In the previous chapter, we explored the RStudio interface, learned how to write and run simple pieces of R code, and practiced creating and manipulating basic data structures such as vectors and data frames. These skills form the foundation for working in R.
 
-In this chapter, we take the next step: working with a real dataset in R. We will learn how to import data, inspect its structure, clean and prepare it, and perform the first simple analyses. Working with real data is an important milestone because it brings together all the skills you’ve learned so far—creating variables, manipulating data, and using packages—in a practical research context.
+In this chapter, we take the next step: we will learn how to **install packages**, **load them**, and **use them in your analyses**. Packages are essential in R because they extend the functionality of the language and make data manipulation, visualization, and analysis much easier.
 
 By the end of this chapter, you will be able to:
 
--   import data from various sources (e.g., CSV, Excel)
+-   Install and load R packages
 
--   inspect and explore a dataset to understand its structure
+-   Navigate packages and explore their functions
 
--   perform basic data cleaning and wrangling
+-   Get help and documentation for packages
 
--   run simple visualization, summaries, and initial analyses
+The skills you learn here will be applied throughout the rest of the book, as you work with more complex datasets and analyses.
 
-These skills form the foundation for all subsequent chapters. Once you are comfortable importing and working with real datasets, you will be ready to move on to more advanced analyses and data visualizations.
+## Installing and loading packages {#sec-installing-and-loading-packages}
 
-## Dataset
+Base R already includes many useful functions, such as creating variables, working with vectors, and building data frames. However, much of R’s power comes from the thousands of **additional packages** created by researchers and developers. These packages make tasks like data manipulation, visualization, modeling, or reporting much easier.
 
-To start working with a real dataset, I will use my own data of my own study [Registered Report: The effects of incentivized lies on memory](https://doi.org/10.1002/acp.3986). In this study, participants (n = 230) were randomly assigned to one of two conditions:
+Earlier, we briefly introduced the **`dplyr`** package for data manipulation. Let’s now formally look at how to install and load packages.
 
--   **strong-incentive to cheat**
+### Installing a package from CRAN
 
--   **weak-incentive to cheat**
+CRAN (the Comprehensive R Archive Network) is the main place where R packages are stored. To install a package from CRAN, you run:
 
-Participants completed an adapted *Sequential Dyadic Die-Rolling* paradigm, where they rolled a die and reported its outcome. Depending on the condition:
-
--   In the **strong-incentive** condition, lying helped participants avoid a financial penalty.
-
--   In the **weak-incentive** condition, lying produced a prosocial outcome (a benefit for an unknown other).
-
-Two days later, participants completed two forms of memory assessment:
-
-1.  **Six questions from the Autobiographical Memory Questionnaire**
-
-```         
--   Each rated on a 7-point Likert scale
+```{r, eval=F}
+install.packages("dplyr")
 ```
 
-2.  **Memory for the die rolls**
+-   You only need to install a package **once** on your computer (unless you update or reinstall R).
 
-We will use this dataset to demonstrate the workflow for importing, viewing, and preparing data for analysis.
+## Installing packages from GitHub
 
-## Load in data
+Not all packages are available on CRAN. Many developers share their newest or experimental work on **GitHub**. To install these packages, you first need the `devtools` package.
 
-To load the dataset, we first need the **readxl** package, which allows R to import Excel files:
+### Step 1: Install and load devtools
 
-```{r, message =F}
-library(readxl)
+```{r,  eval=F}
+install.packages("devtools") 
+library(devtools) 
 ```
 
-Since the data is stored in an Excel `.xlsx` file, we will use `read_xlsx()` to import it:
+### Step 2: Install a package from GitHub
 
-```{r}
-df_original <- read_xlsx("Final Data Analysis.xlsx")
+The syntax is:
+
+```{r,  eval=F}
+devtools::install_github("username/repository") 
 ```
 
-**Tip:**\
-It’s helpful to keep the imported dataset untouched under a name like `df_original`. This allows you to return to the clean version easily if mistakes happen during data cleaning or transformation.
+For example, I created a package called *ROCpower* and uploaded it to GitHub, you could install it like this
 
-## Viewing the data
-
-The first step in any data-analysis workflow is to inspect the imported dataset—both to confirm that it loaded correctly and to understand how it is structured.
-
-You can open it in RStudio’s spreadsheet viewer using:
-
-```{r}
-View(df_original)
+```{r,  eval=F}
+devtools::install_github("PaulRiesthuis/ROCpower")
 ```
 
-To preview only the first few rows:
+GitHub installations are useful when:
 
-```{r}
-head(df_original)
-```
+-   a package is very new
 
-At this stage, you may notice that:
+-   a feature is only available in the development version
 
--   the dataset contains **many columns not relevant for analysis**
--   many variable names contain **spaces or special characters**, which complicates coding
--   To address this, we will clean the column names.
+-   or the author hasn’t uploaded it to CRAN yet
 
-## Cleaning column names
+## Loading a package
 
-The **janitor** package provides a simple function, `clean_names()`, that automatically:
+After installation, you need to *load* the package each time you start a new R session:
 
--   removes spaces and special characters
--   converts names to snake_case
--   ensures names are syntactically valid
-
-```{r, message=F, warning =F}
-library(janitor)
-df_original <- df_original %>% 
-  clean_names()
-```
-
-This is especially useful for survey data exported from platforms like **Qualtrics**, which often produce long and messy column names.
-
-## Removing inattentive participants
-
-When inspecting the dataset, you may have noticed that it contains **243 rows**, corresponding to **243 participants**. However, the final sample reported in the article consists of **230 participants**. The difference is due to the exclusion of participants who did not pass the attention checks.
-
-The variable `attention` indicates how many attention checks each participant failed. Following the procedure described in the article, we exclude participants who failed **more than three** attention checks.
-
-To keep the original dataset intact, we create a new dataset (`df_analysis`) using **dplyr** that excludes these participants:
-
-```{r}
-# Create a new dataset while keeping the original data unchanged
-df_analysis <- df_original %>% 
-  dplyr::filter(attention <= 3)
-
-# Check the number of remaining participants
-nrow(df_analysis)
-
-```
-
-After this step, we are left with **230 rows (participants)**, which matches the sample size reported in the article.
-
-## Selecting relevant variables
-
-Next, we select the variables needed for our analysis using **dplyr**, rename the fourth question:
-
-```{r, message =F}
+```{r, message = F}
 library(dplyr)
-df_analysis <- df_analysis %>%
-  select(participants,
-         condition,
-         subcondition_2,
-         x1_as_i_think_about_the_task_i_can_actually_remember_it,
-         x2_as_i_remember_the_task_i_can_feel_now_the_emotions_that_i_felt_then,
-         x3_overall_i_remember_this_event,
-         reverse_coded_question_4,
-         x5_i_remember_how_i_felt_at_the_time_i_just_recalled,
-         x6_i_remember_what_i_thought_at_the_time_of_the_event_i_just_recalled,
-         total_memory_errors)
-
-df_analysis <- df_analysis %>%
-  rename(
-    x4_reverse_coded_question_4 = reverse_coded_question_4
-  )
-
-head(df_analysis)
 ```
 
-In this study, they also created an **overall belief score** by averaging six individual memory and belief items which we can do with **dplyr**. We compute the overall belief score as the row-wise mean of the six relevant variables. Missing values are ignored using na.rm = TRUE.
+Once a package is loaded, all of its functions become available for use. @riesthuis_simulation-based_2024
 
-```{r}
-# Create overall belief score
-df_analysis <- df_analysis %>% 
-  mutate(
-    overall_belief = rowMeans(
-      select(
-        .,
-        x1_as_i_think_about_the_task_i_can_actually_remember_it,
-        x2_as_i_remember_the_task_i_can_feel_now_the_emotions_that_i_felt_then,
-        x3_overall_i_remember_this_event,
-        x4_reverse_coded_question_4,
-        x5_i_remember_how_i_felt_at_the_time_i_just_recalled,
-        x6_i_remember_what_i_thought_at_the_time_of_the_event_i_just_recalled
-      ),
-      na.rm = TRUE
-    )
-  )
+## Using a package
 
-```
+Once a package is loaded with `library()`, you can immediately start using its functions. Most packages are organized around a specific purpose. Some of the most used packages are:
 
-Then we can put this together in a searchable table using the package **reactable**:
+### Data manipulation and cleaning
+
+-   **dplyr** – grammar of data manipulation (filtering, selecting, grouping)
+-   **tidyr** – reshaping and organizing data (pivoting, separating, unnesting)
+-   **stringr** – working with text data (string detection, replacement, cleaning)
+-   **tidyverse** – Loading `tidyverse` loads `dplyr`, `tidyr`, `stringr`, and other core packages at once.
+
+### Data importing
+
+-   **readr** – fast reading of CSV and text files
+-   **readxl** – import Excel files (e.g., `.xls` and `.xlsx`)
+-   **haven** – import SPSS, Stata, and SAS data
+-   **rvest** – downloading or scraping data from the web
+
+### Data visualization
+
+-   **ggplot2** – the most widely used visualization system in R
+-   **patchwork** – combine multiple ggplots into one figure
+-   **ggthemes** – additional themes and styles for ggplot2
+-   **plotly** – make interactive plots based on ggplot2
+
+### Data analysis and statistics
+
+-   **lme4** – mixed-effects models
+-   **psych** – descriptive statistics and psychometric tools
+-   **negligible** – equivalence tests
+-   **car** – common regression diagnostics and hypothesis tests
+-   **metafor** – meta-analyses
+-   **broom** – convert model outputs into tidy data frames
+
+### Simulation
+
+-   **faux** – simulate data for typical experimental designs
+-   **simstudy** – flexible framework to simulate data for studies, including complex dependencies
+-   **mirt** – simulate item response theory (IRT) data for psychometrics
+-   **MASS** – includes functions for statistical methods and simulation for multivariate normal data
+
+### Power analysis
+
+-   **Spower** – conduct simulation based power analyses based on G\*Power
+-   **ROCpower** – power analyses for Receiver Operating Characteristic curves
+-   **pwr** – traditional analytical power calculations for t-tests, ANOVA, correlations, proportions, etc.
+
+### Reporting and reproducibility
+
+-   **knitr** – knitting R Markdown and Quarto documents
+-   **rmarkdown** / **quarto** – reproducible reports and documents
+-   **janitor** – cleaning column names and simple frequency tables
+
+These are just a few of the most commonly used packages—R has thousands more, and we will introduce additional packages throughout the book as they become useful.
+
+## Calling functions from a package
+
+If a package is loaded, you can simply call its functions by name:
 
 ```{r, message=F}
-library(reactable)
-
-reactable(
-  df_analysis,
-  searchable = TRUE,
-  pagination = TRUE,
-  defaultPageSize = 5,
-  highlight = TRUE
-)
-```
-
-This allows readers to scroll, search, and browse the data directly in a clean table format.
-
-## Data visualization
-
-Now that we have a cleaned dataset, we can start exploring it visually. Visualization is an essential step in data analysis because it allows us to **understand patterns, spot outliers, and communicate results clearly**.
-
-### Belief and recollection overall
-
-First, we will visualize the overall belief and recollection scores. These scores combine responses from six memory questions. We use ggplot2 for flexible plotting:
-
-```{r, warning =F, message=F}
-library(ggplot2)
-library(ThemePark)
-# Plot
-plot_belief <- ggplot(df_analysis, aes(x = condition, y = overall_belief, fill = condition)) +
-  geom_jitter(
-    width = 0.15,
-    alpha = 0.5,
-    size = 2,
-    shape = 21,
-    color = "black"
-  ) +
-  scale_y_continuous(
-    limits = c(1, 7),
-    breaks = 1:7
-  ) +
-  labs(
-    y = "Belief and Recollection Score",
-    x = NULL
-  ) +
-  theme_barbie() +
-  theme(
-    legend.position = "none",
-    axis.text = element_text(size = 16),
-    axis.title.y = element_text(size = 18),
-    panel.grid = element_blank()
-  )
-
-plot_belief
-
-```
-
--   geom_jitter spreads points horizontally so overlapping points are visible
--   The plot shows individual participant scores as well as the overall pattern by condition
--   theme_babie is from **ThemePark** where many other cool themes are available
-
-You can also use **ggstatsplot** for plots with built-in statistical summaries:
-
-```{r, message= F, warning=F}
-library(ggstatsplot)
-
-ggbetweenstats(
-  data  = df_analysis,
-  x     = condition,
-  y     = overall_belief,
-)
-```
-
-### Belief and recollection individual
-
-Sometimes, it’s useful to examine each question separately instead of combining them into a single overall score. To do this, we need to **reshape the dataset from wide to long format**.
-
-In **wide format**, each participant has a single row, with responses to different questions stored in separate columns (e.g., x1 to x6). In **long format**, each row represents one participant’s response to a single question. As a result, each participant contributes multiple rows — one for each question.
-
-Reshaping data in this way is typical when working with **multilevel models** (also called hierarchical linear models or linear mixed models), where each observation (row) represents a participant-item combination. Long-format datasets also make it easier to generate **faceted plots**, apply **grouped summaries**, or run analyses that consider responses at the item level.
-
-R provides convenient functions for switching between formats: **`pivot_longer()`** converts wide data to long, and **`pivot_wider()`** converts long data back to wide. Mastering these functions allows you to easily manipulate your dataset depending on the type of analysis or visualization you want to perform.
-
-In our dataset, reshaping to long format will result in **six rows per participant** — one for each question. Once in this format, we can create plots that show responses to each question across conditions, which provides a more detailed view of the data compared with the overall score.
-
-```{r}
-library(tidyr)
-df_long <- df_analysis %>%
-  pivot_longer(
-    cols = starts_with("x"),
-    names_to = "question",
-    values_to = "score"
-  )
-
-head(df_long,12)
-```
-
-Now, each participant has six rows — one per question — making it easy to create faceted plots:
-
-```{r, message= F, message = F}
-ggplot(df_long, aes(x = condition, y = score, fill = condition)) +
-  geom_jitter(width = 0.15, alpha = 0.5, size = 2, shape = 21, color = "black") +
-  facet_wrap(~question, 
-             scales = "free_y") +
-  labs(y = "Score", 
-       x = NULL) +
-  theme_barbie(base_size = 14) +
-  theme(legend.position = "none", 
-        axis.text.x = element_text(angle = 45, 
-                                   hjust = 1))
-
-```
-
--   Each panel corresponds to one question
--   **`scales = "free_y"`** allows each question’s responses to use its own y-axis, making patterns easier to see
-
-### Memory errors
-
-For completeness, we can visualize the **total memory errors**:
-
-```{r}
-ggbetweenstats(
-  data  = df_analysis,
-  x     = condition,
-  y     = total_memory_errors,
-)
-```
-
-## Data analysis
-
-After exploring the data visually, the next step is to summarize and analyze it quantitatively. A common first step in any analysis workflow is to examine descriptive statistics, which help us understand the overall patterns in the data, detect potential issues, and prepare for more advanced analyses.
-
-### Descriptive statistics
-
-In the following code, we will extract the sample size, mean, and standard deviation per group for all variables of interest in our dataset.
-
-```{r}
 library(dplyr)
-library(tidyr)
 
-# Specify the numeric variables you want to summarize
-numeric_vars <- c(
-  "x1_as_i_think_about_the_task_i_can_actually_remember_it",
-  "x2_as_i_remember_the_task_i_can_feel_now_the_emotions_that_i_felt_then",
-  "x3_overall_i_remember_this_event",
-  "x4_reverse_coded_question_4",
-  "x5_i_remember_how_i_felt_at_the_time_i_just_recalled",
-  "x6_i_remember_what_i_thought_at_the_time_of_the_event_i_just_recalled",
-  "total_memory_errors",
-  "overall_belief"
+df <- data.frame(
+  Name  = c("Alice", "Bob", "Charlie"),
+  Age   = c(25, 30, 22),
+  Passed = c(TRUE, FALSE, TRUE)
 )
 
-# Summary table
-summary_table <- df_analysis %>%
-  group_by(condition) %>%
-  summarise(
-    N = n(),
-    across(
-      all_of(numeric_vars),
-      list(
-        Mean = ~mean(.x, na.rm = TRUE),
-        SD = ~sd(.x, na.rm = TRUE)
-      ),
-      .names = "{.col}_{.fn}"
-    ),
-    .groups = "drop"
-  )
-
-# View table
-summary_table
+df %>% 
+  filter(Passed == TRUE)
 ```
 
--   Each row corresponds to a condition
-
--   `N` is the number of participants per condition.
-
--   Columns ending with `_Mean` or `_SD` show the mean and standard deviation for each variable.
-
-    Optional: For an interactive table in an HTML document or Shiny app, you can use **reactable**:
-
-    ```{r}
-    reactable(summary_table)
-    ```
-
-### Internal consistency reliability
-
-In the article, they conducted several analyses such as assessing the internal consistency among the AMQ score via Cronbach's alpha and McDonald's Omega. We can easily do this in R:
-
-```{r, message= F, warning=F}
-items <- df_analysis %>%
-  select(
-    x1_as_i_think_about_the_task_i_can_actually_remember_it,
-    x2_as_i_remember_the_task_i_can_feel_now_the_emotions_that_i_felt_then,
-    x3_overall_i_remember_this_event,
-    x4_reverse_coded_question_4,
-    x5_i_remember_how_i_felt_at_the_time_i_just_recalled,
-    x6_i_remember_what_i_thought_at_the_time_of_the_event_i_just_recalled
-  )
-alpha_result <- psych::alpha(items)
-alpha_result$total$raw_alpha
-
-omega_result <- psych::omega(items, nfactors = 1)
-omega_result$omega_h
-```
-
-## Inferential statistics
-
-We now turn to testing our main hypotheses:
-
-1.  **Belief and recollection scores:** Participants in the strong-incentive to cheat condition (Likely Cheating) are expected to have **lower belief and recollection scores** than those in the weak-incentive condition (Unlikely Cheating).
-
-2.  **Memory errors:** Participants in the strong-incentive condition are expected to have **more memory errors** than those in the weak-incentive condition.
-
-We will examine these hypotheses using both **Bayesian** and **frequentist** methods.
-
-### Belief and recollection scores
-
-#### Bayesian t-test (directional)
-
-```{r,message=F,warning=F}
-library(BayesFactor)
-bf_belief <- ttestBF(
-x = df_analysis$overall_belief[df_analysis$condition=="Unlikely Cheating"],
-y = df_analysis$overall_belief[df_analysis$condition=="Likely Cheating"],
-prior = "medium",
-nullInterval = c(-Inf, 0) # directional test: strong-incentive < weak-incentive
-)
-
-bf_belief
-```
-
-#### Frequentist t-test
+If you want to use a function **without loading the entire package**, you can call it with `::`:
 
 ```{r}
-# Frequentist t-test for belief scores
-ttest_belief <- t.test(
-  x = df_analysis$overall_belief[df_analysis$condition=="Unlikely Cheating"],
-  y = df_analysis$overall_belief[df_analysis$condition=="Likely Cheating"],
-  paired = FALSE,
-  var.equal = FALSE,
-  alternative = "greater"
-)
-ttest_belief
+dplyr::filter(df, Passed == TRUE)
+```
+
+## Getting help for a package
+
+R includes extensive documentation for every package and every function.
+
+### Get help for the whole package:
+
+```{r, eval =F, message =F}
+help(package = "dplyr")
 
 ```
 
-#### Effect size
+### Help for a specific function:
 
-```{r}
-effectsize::effectsize(ttest_belief)
+```{r, eval = F}
+?filter
+
 ```
 
-### Memory errors
+### Search for function names or keywords:
 
-#### Bayesian t-test (directional)
+```{r, eval = F}
+??"mean"
 
-```{r}
-library(BayesFactor)
-bf_mem <- ttestBF(
-x = df_analysis$total_memory_errors[df_analysis$condition=="Unlikely Cheating"],
-y = df_analysis$total_memory_errors[df_analysis$condition=="Likely Cheating"],
-prior = "medium",
-nullInterval = c(-Inf, 0) # directional test: strong-incentive < weak-incentive
-)
-
-bf_mem
-```
-
-#### Frequentist t-test
-
-```{r}
-# Frequentist t-test for memory scores
-ttest_mem <- t.test(
-  x = df_analysis$total_memory_errors[df_analysis$condition=="Unlikely Cheating"],
-  y = df_analysis$total_memory_errors[df_analysis$condition=="Likely Cheating"],
-  paired = FALSE,
-  var.equal = FALSE,
-  alternative = "greater"
-)
-ttest_mem
-```
-
-#### Effect size
-
-```{r}
-effectsize::effectsize(ttest_mem)
 ```
 
 ## Summary
 
-In this chapter, we worked through a complete analysis workflow using a real research dataset, showing how to import, clean, and prepare data for analysis in R. We explored the data visually, created composite scores, examined reliability, and extracted descriptive statistics before testing the main hypotheses using both frequentist and Bayesian methods. Together, these steps demonstrate how raw data are transformed into interpretable results and provide a solid foundation for the more advanced analyses introduced in the next chapter.
+In this chapter, we learned how to install and load R packages, explored some of the most commonly used packages for data manipulation, visualization, analysis, and reporting, and learned how to access help and call functions. Packages are a core part of R’s power, and you will continue to encounter and use many more throughout the book. With these tools in hand, you are ready to move on to working with **real datasets** and applying your skills in practical research analyses.
