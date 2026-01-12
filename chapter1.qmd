@@ -30,8 +30,13 @@ t.test(g1,g2)
 With a single line of code, it is possible conduct a linear mixed model (multilevel, hierarchical modeling, etc.):
 
 ```{r}
+# load package 
+library(lme4)
+library(flexplot)
+f = flexplot::plant_growth
+
 # Get data
-e <- glmer(Diameter ~ Location + (1|Method), data=plant_growth)
+e <- glmer(Diameter ~ Location + (1|Method), data=f)
 summary(e)
 
 ```
