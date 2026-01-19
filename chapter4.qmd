@@ -2,7 +2,7 @@
 
 In the previous chapter, we learned how to install, load, and use R packages. These tools are essential for real-world data analysis, and now we will start applying them in practice.
 
-In this chapter, we take the next step: working with a real dataset in R. We will learn how to import data, inspect its structure, clean and prepare it, and perform the first simple analyses. Working with real data is an important milestone because it brings together all the skills you’ve learned so far—creating variables, manipulating data, and using packages—in a practical research context.
+In this chapter, we take the next step: working with a real dataset in R ([download dataset here](https://github.com/PaulRiesthuis/R-for-Applied-Researchers/blob/main/Final%20Data%20Analysis.xlsx)) We will learn how to import data, inspect its structure, clean and prepare it, and perform the first simple analyses. Working with real data is an important milestone because it brings together all the skills you’ve learned so far—creating variables, manipulating data, and using packages—in a practical research context.
 
 By the end of this chapter, you will be able to:
 
