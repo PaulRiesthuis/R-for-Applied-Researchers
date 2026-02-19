@@ -1,6 +1,6 @@
 # Multilevel data {#sec-real-dataset}
 
-In the previous chapter, we worked with a real dataset and performed standard statistical analyses such as t-tests and reliability analyses. However, many real-world datasets contain **nested or clustered data structures**. This becomes especially relevant when we want to address questions about individual differences as we discussed in a previous meting. In this chapter, we take the next step: working with **multilevel data** in R.
+In the previous chapter, we worked with a real dataset and performed standard statistical analyses such as t-tests and reliability analyses. However, many real-world datasets contain **nested or clustered data structures**. This becomes especially relevant when we want to address questions about individual differences as we discussed in a previous meeting. In this chapter, we take the next step: working with **multilevel data** in R.
 
 In our example, legal professionals evaluated multiple scenarios. This means that each participant contributed multiple responses. The data are therefore **not independent** — responses are nested within individuals.
 
@@ -20,7 +20,7 @@ These skills are essential when working with repeated measures, longitudinal des
 
 ## Dataset
 
-In this example, we use data from a study among legal professionals in Belgium and the Netherlands. Participants evaluated three different scenarios, each consisting of six items measuring memory errors. Download the dataset here ([download dataset here](https://github.com/PaulRiesthuis/R-for-Applied-Researchers/blob/main/Raw%20Data%20.xlsx)
+In this example, we use data from a study among legal professionals in Belgium and the Netherlands. Participants evaluated three different scenarios, each consisting of six items measuring memory errors [Download the dataset here.](https://github.com/PaulRiesthuis/R-for-Applied-Researchers/blob/main/Raw%20Data%20.xlsx)
 
 Because each participant responded to multiple items across multiple scenarios, the dataset has a **two-level structure**:
 
