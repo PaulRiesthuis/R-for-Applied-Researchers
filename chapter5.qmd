@@ -1,4 +1,4 @@
-# Multilevel data {#sec-real-dataset}
+# Multilevel data {#multilevel-data}
 
 In the previous chapter, we worked with a real dataset and performed standard statistical analyses such as t-tests and reliability analyses. However, many real-world datasets contain **nested or clustered data structures**. This becomes especially relevant when we want to address questions about individual differences as we discussed in a previous meeting. In this chapter, we take the next step: working with **multilevel data** in R.
 
@@ -278,7 +278,7 @@ visualize(model1,
 
 If we ignored the nested structure and treated all observations as independent, we would:
 
--    Underestimate standard errors
+-   Underestimate standard errors
 
 -   Inflate Type I error rates
 
@@ -293,7 +293,6 @@ lm_model <- lm(Memory_errors ~ Scenario, data = dat_analysis_long)
 
 coeftest(lm_model, vcov = vcovCL(lm_model, cluster = ~participants))
 ```
-
 
 ### Optional: Generalized Estimating Equations
 
