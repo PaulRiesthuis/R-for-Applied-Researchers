@@ -66,7 +66,7 @@ The first step in any data-analysis workflow is to inspect the imported dataset�
 You can open it in RStudio’s spreadsheet viewer using:
 
 ```{r}
-View(df_original)
+#View(df_original)
 ```
 
 To preview only the first few rows:
@@ -167,16 +167,17 @@ df_analysis <- df_analysis %>%
 
 Then we can put this together in a searchable table using the package **reactable**:
 
-```{r, message=F}
+```{r, include = knitr::is_html_output(), message=F}
 library(reactable)
 
-reactable(
+table_react <- reactable(
   df_analysis,
   searchable = TRUE,
   pagination = TRUE,
   defaultPageSize = 5,
   highlight = TRUE
 )
+table_react
 ```
 
 This allows readers to scroll, search, and browse the data directly in a clean table format.
@@ -227,14 +228,15 @@ plot_belief
 
 You can also use **ggstatsplot** for plots with built-in statistical summaries:
 
-```{r, message= F, warning=F}
+```{r, include = knitr::is_html_output(), message= F, warning=F}
 library(ggstatsplot)
 
-ggbetweenstats(
+plot_between_stats <- ggbetweenstats(
   data  = df_analysis,
   x     = condition,
   y     = overall_belief,
 )
+plot_between_stats
 ```
 
 ### Belief and recollection individual
@@ -264,7 +266,7 @@ head(df_long,12)
 Now, each participant has six rows — one per question — making it easy to create faceted plots:
 
 ```{r, message= F, message = F}
-ggplot(df_long, aes(x = condition, y = score, fill = condition)) +
+plot_facet <- ggplot(df_long, aes(x = condition, y = score, fill = condition)) +
   geom_jitter(width = 0.15, alpha = 0.5, size = 2, shape = 21, color = "black") +
   facet_wrap(~question, 
              scales = "free_y") +
@@ -274,7 +276,7 @@ ggplot(df_long, aes(x = condition, y = score, fill = condition)) +
   theme(legend.position = "none", 
         axis.text.x = element_text(angle = 45, 
                                    hjust = 1))
-
+plot_facet
 ```
 
 -   Each panel corresponds to one question
@@ -284,12 +286,13 @@ ggplot(df_long, aes(x = condition, y = score, fill = condition)) +
 
 For completeness, we can visualize the **total memory errors**:
 
-```{r}
-ggbetweenstats(
+```{r,include = knitr::is_html_output()}
+plot_between <- ggbetweenstats(
   data  = df_analysis,
   x     = condition,
   y     = total_memory_errors,
 )
+plot_between
 ```
 
 ## Data analysis

@@ -55,7 +55,6 @@ Again, we keep the original dataset untouched and perform all transformations on
 First, inspect the dataset:
 
 ```{r, warning =F, message=F}
-View(dat_original)
 head(dat_original)
 ```
 
