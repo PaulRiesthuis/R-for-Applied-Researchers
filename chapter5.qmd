@@ -1,0 +1,314 @@
+# Multilevel data {#sec-real-dataset}
+
+In the previous chapter, we worked with a real dataset and performed standard statistical analyses such as t-tests and reliability analyses. However, many real-world datasets contain **nested or clustered data structures**. This becomes especially relevant when we want to address questions about individual differences as we discussed in a previous meting. In this chapter, we take the next step: working with **multilevel data** in R.
+
+In our example, legal professionals evaluated multiple scenarios. This means that each participant contributed multiple responses. The data are therefore **not independent** — responses are nested within individuals.
+
+By the end of this chapter, you will be able to:
+
+-   understand what multilevel (hierarchical) data are
+
+-   reshape data from wide to long format
+
+-   prepare nested data for analysis
+
+-   run a basic multilevel model using `lme4`
+
+-   interpret fixed and random effects
+
+These skills are essential when working with repeated measures, longitudinal designs, educational data, or any structure where observations are grouped within higher-level units.
+
+## Dataset
+
+In this example, we use data from a study among legal professionals in Belgium and the Netherlands. Participants evaluated three different scenarios, each consisting of six items measuring memory errors. Download the dataset here ([download dataset here](https://github.com/PaulRiesthuis/R-for-Applied-Researchers/blob/main/Raw%20Data%20.xlsx)
+
+Because each participant responded to multiple items across multiple scenarios, the dataset has a **two-level structure**:
+
+-   Level 1: Item responses
+-   Level 2: Participants
+
+This nested structure requires multilevel modeling.
+
+### Load in Data
+
+As before, we begin by loading the required packages and importing the dataset.
+
+```{r, warning =F, message=F}
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(lme4)
+library(data.table)
+library(ggplot2)
+library(flexplot)
+library(sandwich)
+library(gee)
+library(lmtest)
+dat_original <- read_xlsx("Raw_Data.xlsx", skip = 1)
+dat_original <- as.data.frame(dat_original)
+```
+
+Again, we keep the original dataset untouched and perform all transformations on a new object when needed.
+
+### Viewing the Data
+
+First, inspect the dataset:
+
+```{r, warning =F, message=F}
+View(dat_original)
+head(dat_original)
+```
+
+At this stage, you may notice:
+
+-   Many long variable names
+-   Several variables not relevant for analysis
+-   Multiple columns corresponding to scenario items
+-   We will now clean and prepare the dataset.
+
+## Cleaning and Preparing the Data
+
+### Create participant column
+
+```{r, warning =F, message=F}
+dat_original$participants <- seq(1,nrow(dat_original),1)
+```
+
+### Rename question columns to x1-x18
+
+```{r, warning =F, message=F}
+dat_analysis <- dat_original %>%
+  rename_with(
+    ~ paste0("x", 1:18),
+    .cols = 29:46
+  )
+```
+
+### Rename country column
+
+```{r, warning =F, message=F}
+dat_analysis <- dat_analysis %>% 
+  mutate(Country = case_when(`List of Countries...28` == "Netherlands" ~ "NL",
+                      `List of Countries...28`  == "Belgium" ~ "BE",
+                      `List of Countries...28`  == "United States of America" ~ "USA",
+                      TRUE ~ "Other"))
+```
+
+### Rename occupation column
+
+```{r, warning =F, message=F}
+setnames(dat_analysis, old = "Wat is uw huidige beroep? - Selected Choice", new =  "Occupation")
+```
+
+### Recode "never" (=12) responses to NA
+
+```{r, warning =F, message=F}
+dat_analysis <- dat_analysis %>% 
+  mutate_at(c("x1","x2","x3","x4","x5","x6","x7","x8","x9","x10","x11","x12","x13","x14","x15","x16","x17","x18"), ~replace_na(., 12)) # this is to make the option "never" in analyzable variable.
+```
+
+### Keep Relevant Participants
+
+#### Step 1: Keep participants who completed at least one scenario
+
+```{r, warning =F, message=F}
+dat_analysis <- dat_analysis %>%
+  filter(Progress >= 49)
+```
+
+#### Step 2: Keep participants from Belgium or the Netherlands
+
+```{r, warning =F, message=F}
+dat_analysis <- dat_analysis %>%
+  filter(Country %in% c("NL", "BE"))
+```
+
+#### Step 3: Logical age-work consistency
+
+```{r, warning =F, message=F}
+dat_analysis <- dat_analysis %>%
+  filter(`Leeftijd (in jaren)` - `Hoeveel jaren werkt u ongeveer al in het rechtssysteem?` > 18)
+```
+
+#### Step 4: Judges must have at least 5 years of experience
+
+```{r, warning =F, message=F}
+dat_analysis <- dat_analysis %>%
+  filter(!(Occupation == "Rechter" & `Hoeveel jaren werkt u ongeveer al in het rechtssysteem?` < 5))
+
+```
+
+#### Step 5: Minimum survey duration
+
+```{r, warning =F, message=F}
+dat_analysis <- dat_analysis %>%
+  filter(`Duration (in seconds)` > 300)
+```
+
+This leaves us with 69 participants just as in the original article.
+
+```{r, warning =F, message=F}
+nrow(dat_analysis)
+```
+
+### Create dataset for analysis
+
+```{r, warning =F, message=F}
+dat_analysis_wide <- dat_analysis %>%
+  select(
+    participants,
+    Country,
+    starts_with("x")
+  )
+
+head(dat_analysis_wide)
+```
+
+## Wide vs Long Format
+
+Currently, each participant has **one row**, and each question is stored in a separate column (`x1` to `x18`; see above). This is called **wide format**.
+
+However, multilevel models require **long format**, where: - Each row represents one participant-item combination - Each participant therefore has multiple rows
+
+Reshaping data is a crucial skill in advanced data analysis.
+
+### Convert to Long Format
+
+We use `pivot_longer()`:
+
+```{r, warning =F, message=F}
+dat_analysis_long <- dat_analysis_wide %>%
+  pivot_longer(
+    cols = starts_with("x"),
+    names_to = "Questions",
+    values_to = "Memory_errors"
+  )
+```
+
+Now, each participant contributes 18 rows — one per question.
+
+### Create Scenario Variable
+
+Each scenario contains six items: - x1–x6 → Scenario 1 - x7–x12 → Scenario 2 - x13–x18 → Scenario 3
+
+```{r, warning =F, message=F}
+# Create grouping variable for scenario
+dat_analysis_long <- dat_analysis_long %>%
+  mutate(Scenario = ifelse(Questions == "x1", "scen1",
+                    ifelse(Questions == "x2", "scen1",
+                    ifelse(Questions == "x3", "scen1",
+                    ifelse(Questions == "x4", "scen1",
+                    ifelse(Questions == "x5", "scen1",
+                    ifelse(Questions == "x6", "scen1",
+                    ifelse(Questions == "x7", "scen2",
+                    ifelse(Questions == "x8", "scen2",
+                    ifelse(Questions == "x9", "scen2",
+                    ifelse(Questions == "x10", "scen2",
+                    ifelse(Questions == "x11", "scen2",
+                    ifelse(Questions == "x12", "scen2",
+                    "scen3")))))))))))))
+```
+
+### Set scenario as factor and set reference group
+
+```{r, warning =F, message=F}
+dat_analysis_long$Scenario <- as.factor(dat_analysis_long$Scenario)
+dat_analysis_long$Scenario  <- relevel(dat_analysis_long$Scenario , ref = "scen2")
+```
+
+## Data Visualization
+
+Before modeling, it is always helpful to visualize the data.
+
+```{r, warning =F, message=F}
+ggplot(dat_analysis_long, aes(x = Scenario, y = Memory_errors)) +   
+  geom_jitter(width = 0.15, alpha = 0.3) +   theme_minimal() +   
+  labs(y = "Memory Errors", x = NULL) +
+  theme_classic()
+```
+
+## Plot multilevel data
+
+```{r, warning =F, message=F}
+ggplot(dat_analysis_long, aes(x = Scenario, y = Memory_errors, group = participants)) +
+  # Individual participant trajectories (random slopes)
+  geom_line(alpha = 0.3, color = "steelblue") +
+  # Individual data points
+  geom_point(alpha = 0.5, size = 2) +
+  # Overlay average trend (fixed effect)
+  stat_summary(aes(group = 1), fun = mean, geom = "line", color = "red", size = 1.5) +
+  stat_summary(aes(group = 1), fun = mean, geom = "point", color = "red", size = 3) +
+  theme_classic() +
+  labs(
+    y = "Memory Errors",
+    x = NULL,
+    title = "Memory Errors Across Scenarios",
+    subtitle = "Blue lines: individual participants (random slopes/intercepts)\nRed line: group mean (fixed effect)"
+  )
+```
+
+Because participants contribute multiple observations, the points are clustered within individuals.
+
+## Multilevel Model
+
+We now fit a linear mixed-effects model.
+
+```{r, warning =F, message=F}
+model1 <- lmer(Memory_errors ~ Scenario + (Scenario | participants),   
+                   data = dat_analysis_long)
+summary(model1)
+```
+
+This model includes:
+
+-   **Fixed effect of Scenario** (average differences between scenarios)
+
+-   **Random intercepts** (participants differ in overall error levels)
+
+-   **Random slopes** (participants differ in scenario effects)
+
+## plot the model with Flexplot
+
+```{r, warning =F, message=F}
+visualize(model1,
+          sample = 69)
+```
+
+## Why Not Use a Regular ANOVA?
+
+If we ignored the nested structure and treated all observations as independent, we would:
+
+-    Underestimate standard errors
+
+-   Inflate Type I error rates
+
+-   Risk incorrect conclusions
+
+Multilevel models account for **individual differences** explicitly. However, if you only want to take into account the dependency and are interested in the fixed effects, simpler solutions exist such as:
+
+#### Optional: Cluster-robust standard errors
+
+```{r}
+lm_model <- lm(Memory_errors ~ Scenario, data = dat_analysis_long)  
+
+coeftest(lm_model, vcov = vcovCL(lm_model, cluster = ~participants))
+```
+
+
+### Optional: Generalized Estimating Equations
+
+```{r}
+gee_outcome <- gee(formula = Memory_errors ~ Scenario,
+    id = participants,
+    data = dat_analysis_long,
+    family = gaussian,
+    corstr = "independence")
+
+summary(gee_outcome)
+```
+
+## Summary
+
+In this chapter, we extended our workflow from simple group comparisons to multilevel modeling. We: - Imported and cleaned a real dataset - Applied exclusion criteria - Reshaped data from wide to long format - Visualized nested data - Fit a linear mixed-effects model
+
+Multilevel modeling allows us to properly analyze clustered data while accounting for individual differences. These models are essential in psychology, education, medicine, and many other fields where repeated measurements are common.

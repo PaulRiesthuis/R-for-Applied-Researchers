@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Multilevel data – Introduction to R for Data Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./chapter4.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e57a4e25819704d49ee3aedc2e0e2ba3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-44edb28cc1e6a27c323df531567fe7ef.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-e57a4e25819704d49ee3aedc2e0e2ba3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./chapter5.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Multilevel data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to R for Data Analysis</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Introduction-to-R-for-Data-Analysis.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Introduction-to-R-for-Data-Analysis.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why R?</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">R and Rstudio environment</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Real dataset</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapter5.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Multilevel data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link active" data-scroll-target="#dataset"><span class="header-section-number">5.1</span> Dataset</a>
+  <ul class="collapse">
+  <li><a href="#load-in-data" id="toc-load-in-data" class="nav-link" data-scroll-target="#load-in-data"><span class="header-section-number">5.1.1</span> Load in Data</a></li>
+  <li><a href="#viewing-the-data" id="toc-viewing-the-data" class="nav-link" data-scroll-target="#viewing-the-data"><span class="header-section-number">5.1.2</span> Viewing the Data</a></li>
+  </ul></li>
+  <li><a href="#cleaning-and-preparing-the-data" id="toc-cleaning-and-preparing-the-data" class="nav-link" data-scroll-target="#cleaning-and-preparing-the-data"><span class="header-section-number">5.2</span> Cleaning and Preparing the Data</a>
+  <ul class="collapse">
+  <li><a href="#create-participant-column" id="toc-create-participant-column" class="nav-link" data-scroll-target="#create-participant-column"><span class="header-section-number">5.2.1</span> Create participant column</a></li>
+  <li><a href="#rename-question-columns-to-x1-x18" id="toc-rename-question-columns-to-x1-x18" class="nav-link" data-scroll-target="#rename-question-columns-to-x1-x18"><span class="header-section-number">5.2.2</span> Rename question columns to x1-x18</a></li>
+  <li><a href="#rename-country-column" id="toc-rename-country-column" class="nav-link" data-scroll-target="#rename-country-column"><span class="header-section-number">5.2.3</span> Rename country column</a></li>
+  <li><a href="#rename-occupation-column" id="toc-rename-occupation-column" class="nav-link" data-scroll-target="#rename-occupation-column"><span class="header-section-number">5.2.4</span> Rename occupation column</a></li>
+  <li><a href="#recode-never-12-responses-to-na" id="toc-recode-never-12-responses-to-na" class="nav-link" data-scroll-target="#recode-never-12-responses-to-na"><span class="header-section-number">5.2.5</span> Recode “never” (=12) responses to NA</a></li>
+  <li><a href="#keep-relevant-participants" id="toc-keep-relevant-participants" class="nav-link" data-scroll-target="#keep-relevant-participants"><span class="header-section-number">5.2.6</span> Keep Relevant Participants</a></li>
+  <li><a href="#create-dataset-for-analysis" id="toc-create-dataset-for-analysis" class="nav-link" data-scroll-target="#create-dataset-for-analysis"><span class="header-section-number">5.2.7</span> Create dataset for analysis</a></li>
+  </ul></li>
+  <li><a href="#wide-vs-long-format" id="toc-wide-vs-long-format" class="nav-link" data-scroll-target="#wide-vs-long-format"><span class="header-section-number">5.3</span> Wide vs Long Format</a>
+  <ul class="collapse">
+  <li><a href="#convert-to-long-format" id="toc-convert-to-long-format" class="nav-link" data-scroll-target="#convert-to-long-format"><span class="header-section-number">5.3.1</span> Convert to Long Format</a></li>
+  <li><a href="#create-scenario-variable" id="toc-create-scenario-variable" class="nav-link" data-scroll-target="#create-scenario-variable"><span class="header-section-number">5.3.2</span> Create Scenario Variable</a></li>
+  <li><a href="#set-scenario-as-factor-and-set-reference-group" id="toc-set-scenario-as-factor-and-set-reference-group" class="nav-link" data-scroll-target="#set-scenario-as-factor-and-set-reference-group"><span class="header-section-number">5.3.3</span> Set scenario as factor and set reference group</a></li>
+  </ul></li>
+  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization"><span class="header-section-number">5.4</span> Data Visualization</a></li>
+  <li><a href="#plot-multilevel-data" id="toc-plot-multilevel-data" class="nav-link" data-scroll-target="#plot-multilevel-data"><span class="header-section-number">5.5</span> Plot multilevel data</a></li>
+  <li><a href="#multilevel-model" id="toc-multilevel-model" class="nav-link" data-scroll-target="#multilevel-model"><span class="header-section-number">5.6</span> Multilevel Model</a></li>
+  <li><a href="#plot-the-model-with-flexplot" id="toc-plot-the-model-with-flexplot" class="nav-link" data-scroll-target="#plot-the-model-with-flexplot"><span class="header-section-number">5.7</span> plot the model with Flexplot</a></li>
+  <li><a href="#why-not-use-a-regular-anova" id="toc-why-not-use-a-regular-anova" class="nav-link" data-scroll-target="#why-not-use-a-regular-anova"><span class="header-section-number">5.8</span> Why Not Use a Regular ANOVA?</a>
+  <ul class="collapse">
+  <li><a href="#optional-generalized-estimating-equations" id="toc-optional-generalized-estimating-equations" class="nav-link" data-scroll-target="#optional-generalized-estimating-equations"><span class="header-section-number">5.8.1</span> Optional: Generalized Estimating Equations</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.9</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-real-dataset" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Multilevel data</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In the previous chapter, we worked with a real dataset and performed standard statistical analyses such as t-tests and reliability analyses. However, many real-world datasets contain <strong>nested or clustered data structures</strong>. This becomes especially relevant when we want to address questions about individual differences as we discussed in a previous meting. In this chapter, we take the next step: working with <strong>multilevel data</strong> in R.</p>
+<p>In our example, legal professionals evaluated multiple scenarios. This means that each participant contributed multiple responses. The data are therefore <strong>not independent</strong> — responses are nested within individuals.</p>
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li><p>understand what multilevel (hierarchical) data are</p></li>
+<li><p>reshape data from wide to long format</p></li>
+<li><p>prepare nested data for analysis</p></li>
+<li><p>run a basic multilevel model using <code>lme4</code></p></li>
+<li><p>interpret fixed and random effects</p></li>
+</ul>
+<p>These skills are essential when working with repeated measures, longitudinal designs, educational data, or any structure where observations are grouped within higher-level units.</p>
+<section id="dataset" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="dataset"><span class="header-section-number">5.1</span> Dataset</h2>
+<p>In this example, we use data from a study among legal professionals in Belgium and the Netherlands. Participants evaluated three different scenarios, each consisting of six items measuring memory errors. Download the dataset here (<a href="https://github.com/PaulRiesthuis/R-for-Applied-Researchers/blob/main/Raw%20Data%20.xlsx">download dataset here</a></p>
+<p>Because each participant responded to multiple items across multiple scenarios, the dataset has a <strong>two-level structure</strong>:</p>
+<ul>
+<li>Level 1: Item responses</li>
+<li>Level 2: Participants</li>
+</ul>
+<p>This nested structure requires multilevel modeling.</p>
+<section id="load-in-data" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="load-in-data"><span class="header-section-number">5.1.1</span> Load in Data</h3>
+<p>As before, we begin by loading the required packages and importing the dataset.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flexplot)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gee)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>dat_original <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"Raw_Data.xlsx"</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dat_original <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dat_original)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Again, we keep the original dataset untouched and perform all transformations on a new object when needed.</p>
+</section>
+<section id="viewing-the-data" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="viewing-the-data"><span class="header-section-number">5.1.2</span> Viewing the Data</h3>
+<p>First, inspect the dataset:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(dat_original)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_original)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Start Date            End Date Response Type Progress
+1 2022-09-08 01:53:03 2022-09-08 01:59:06    IP Address      100
+2 2023-02-17 04:14:45 2023-02-17 04:22:38    IP Address      100
+3 2023-02-17 04:16:22 2023-02-17 04:24:30    IP Address      100
+4 2023-02-17 04:19:27 2023-02-17 04:25:26    IP Address      100
+5 2023-02-17 04:32:01 2023-02-17 04:37:19    IP Address      100
+6 2023-02-17 04:36:01 2023-02-17 04:43:03    IP Address      100
+  Duration (in seconds) Finished       Recorded Date       Response ID
+1                   363     True 2022-09-08 01:59:07 R_4VoNppnDktI2CT7
+2                   472     True 2023-02-17 04:22:38 R_1qZZ9iZqVXpVK8t
+3                   487     True 2023-02-17 04:24:30 R_5zrwVhD6IZHWEDL
+4                   359     True 2023-02-17 04:25:27 R_1LzcN6i4yA5txsJ
+5                   318     True 2023-02-17 04:37:19 R_1hFuFPwrXsVrhQx
+6                   421     True 2023-02-17 04:43:03 R_BERedfHMeFn15f3
+  Distribution Channel User Language
+1            anonymous            EN
+2            anonymous            EN
+3            anonymous            EN
+4            anonymous            EN
+5            anonymous            EN
+6            anonymous            EN
+  Welkom bij deze studie!\r\n\r\n \r\n\r\nGeïnformeerde toestemming:\r\n\r\n\r\n\r\nWij zijn geïnteresseerd in wat juridische professionals beschouwen als praktisch relevant onderzoek op het gebied van het geheugen. Voor onze studie zult u 3 verschillende beschrijving ...
+1                                                                                                                                                                                                                                                   ik stem toe om deel te nemen
+2                                                                                                                                                                                                                                                   ik stem toe om deel te nemen
+3                                                                                                                                                                                                                                                   ik stem toe om deel te nemen
+4                                                                                                                                                                                                                                                   ik stem toe om deel te nemen
+5                                                                                                                                                                                                                                                   ik stem toe om deel te nemen
+6                                                                                                                                                                                                                                                   ik stem toe om deel te nemen
+  Leeftijd (in jaren) Geslacht - Selected Choice
+1                  23                      Vrouw
+2                  43                      Vrouw
+3                  52                      Vrouw
+4                  60                      Vrouw
+5                  65                        Man
+6                  50                        Man
+  Geslacht - Anders (graag specificeren): \r\n - Text List of Countries...15
+1                                                &lt;NA&gt;                Belgium
+2                                                &lt;NA&gt;            Netherlands
+3                                                &lt;NA&gt;            Netherlands
+4                                                &lt;NA&gt;            Netherlands
+5                                                &lt;NA&gt;            Netherlands
+6                                                &lt;NA&gt;            Netherlands
+                          Behaalde Diploma’s (selecteer alles dat van toepassing is) - Selected Choice
+1 Bachelor (bijv. BA, BS),Master (bijv. MA, MS, MEd),​​​​​​Master-na-master (bijv. MANAMA, postgraduaat)\r\n
+2                                                                           Master (bijv. MA, MS, MEd)
+3                                                                           Master (bijv. MA, MS, MEd)
+4                                                                           Master (bijv. MA, MS, MEd)
+5                                                                           Master (bijv. MA, MS, MEd)
+6                                                                           Master (bijv. MA, MS, MEd)
+  Behaalde Diploma’s (selecteer alles dat van toepassing is) - ​​​​​​Anders (graag specificeren): \r\n - Text
+1                                                                                                  &lt;NA&gt;
+2                                                                                                  &lt;NA&gt;
+3                                                                                                  &lt;NA&gt;
+4                                                                                                  &lt;NA&gt;
+5                                                                                                  &lt;NA&gt;
+6                                                                                                  &lt;NA&gt;
+  Studierichting (selecteer alles dat van toepassing is) - Selected Choice
+1                                                                  Rechten
+2                                                                  Rechten
+3                                                                  Rechten
+4                                                                  Rechten
+5                                                                  Rechten
+6                                                                  Rechten
+  Studierichting (selecteer alles dat van toepassing is) - Anders (graag specificeren):\r\n - Text
+1                                                                                             &lt;NA&gt;
+2                                                                                             &lt;NA&gt;
+3                                                                                             &lt;NA&gt;
+4                                                                                             &lt;NA&gt;
+5                                                                                             &lt;NA&gt;
+6                                                                                             &lt;NA&gt;
+  Wat is uw huidige beroep? - Selected Choice
+1                                      Jurist
+2                                    Advocaat
+3                                    Advocaat
+4                                    Advocaat
+5                                    Advocaat
+6                                    Advocaat
+  Wat is uw huidige beroep? - Anders (graag specificeren):\r\n - Text
+1                                                                &lt;NA&gt;
+2                                                                &lt;NA&gt;
+3                                                                &lt;NA&gt;
+4                                                                &lt;NA&gt;
+5                                                                &lt;NA&gt;
+6                                                                &lt;NA&gt;
+  Wat is de achtergrond van uw huidige beroep? - Selected Choice
+1                               Anders (graag specificeren):\r\n
+2                                                     Strafrecht
+3                                                     Strafrecht
+4                                                     Strafrecht
+5                                                     Strafrecht
+6                                                     Strafrecht
+  Wat is de achtergrond van uw huidige beroep? - Anders (graag specificeren):\r\n - Text
+1                                                                           Publiekrecht
+2                                                                                   &lt;NA&gt;
+3                                                                                   &lt;NA&gt;
+4                                                                                   &lt;NA&gt;
+5                                                                                   &lt;NA&gt;
+6                                                                                   &lt;NA&gt;
+  Heeft u ooit gewerkt in het strafrecht?
+1                                     Nee
+2                                    &lt;NA&gt;
+3                                    &lt;NA&gt;
+4                                    &lt;NA&gt;
+5                                    &lt;NA&gt;
+6                                    &lt;NA&gt;
+  Welk beroep heeft u uitgeoefend in het strafrecht? - Selected Choice
+1                                                                 &lt;NA&gt;
+2                                                                 &lt;NA&gt;
+3                                                                 &lt;NA&gt;
+4                                                                 &lt;NA&gt;
+5                                                                 &lt;NA&gt;
+6                                                                 &lt;NA&gt;
+  Welk beroep heeft u uitgeoefend in het strafrecht? - ​​​​​​Anders (graag specificeren):\r\n - Text
+1                                                                                           NA
+2                                                                                           NA
+3                                                                                           NA
+4                                                                                           NA
+5                                                                                           NA
+6                                                                                           NA
+  Hoeveel jaren werkt u ongeveer al in het rechtssysteem?
+1                                                       0
+2                                                      18
+3                                                      26
+4                                                      35
+5                                                      35
+6                                                      25
+                                List of Countries...28
+1                                              Belgium
+2                                          Netherlands
+3                                          Netherlands
+4                                          Netherlands
+5                                          Netherlands
+6 United Kingdom of Great Britain and Northern Ireland
+  Hoeveel van zulke fouten in een getuigenverklaring zijn naar uw mening voldoende om de verklaring onbetrouwbaar te achten? - Aantal fouten...29
+1                                                                                                                                             1.5
+2                                                                                                                                             3.3
+3                                                                                                                                             2.9
+4                                                                                                                                              NA
+5                                                                                                                                             0.8
+6                                                                                                                                             2.9
+  Hoeveel van zulke fouten in een getuigenverklaring zijn naar uw mening voldoende om de verklaring buiten beschouwing te laten? - Aantal fouten...30
+1                                                                                                                                                 1.6
+2                                                                                                                                                 6.6
+3                                                                                                                                                 2.9
+4                                                                                                                                                 2.9
+5                                                                                                                                                 0.7
+6                                                                                                                                                 2.9
+  Hoeveel van zulke fouten in een getuigenverklaring zouden naar uw mening genoeg zijn om de getuige zelf buiten beschouwing te laten? - Aantal fouten...31
+1                                                                                                                                                       1.2
+2                                                                                                                                                       1.6
+3                                                                                                                                                       6.1
+4                                                                                                                                                       3.0
+5                                                                                                                                                       1.0
+6                                                                                                                                                       3.0
+  Hoeveel van zulke fouten in een getuigenverklaring zouden er naar uw mening toe leiden dat een rechter in uw rechtsgebied het bewijs buiten beschouwing laat? - Aantal fouten...32
+1                                                                                                                                                                                0.6
+2                                                                                                                                                                                 NA
+3                                                                                                                                                                                5.0
+4                                                                                                                                                                                 NA
+5                                                                                                                                                                                1.9
+6                                                                                                                                                                               10.0
+  Hoeveel van zulke fouten in een getuigenverklaring zijn volgens u nodig voordat u zou overwegen een deskundige in te schakelen om de rechter uit te leggen hoe het menselijk geheugen werkt? - Aantal fouten...33
+1                                                                                                                                                                                                               1.5
+2                                                                                                                                                                                                                NA
+3                                                                                                                                                                                                                NA
+4                                                                                                                                                                                                               1.4
+5                                                                                                                                                                                                               1.0
+6                                                                                                                                                                                                               4.0
+  Hoeveel van zulke fouten in een getuigenverklaring zouden er naar uw mening in het algemeen toe leiden dat een gemiddeld persoon het belang van het getuige bewijs verlaagt? - Aantal fouten...34
+1                                                                                                                                                                                               0.0
+2                                                                                                                                                                                                NA
+3                                                                                                                                                                                               3.9
+4                                                                                                                                                                                               5.0
+5                                                                                                                                                                                               0.8
+6                                                                                                                                                                                               5.2
+  Hoeveel van zulke fouten in een getuigenverklaring zijn naar uw mening voldoende om de verklaring onbetrouwbaar te achten? - Aantal fouten...35
+1                                                                                                                                             2.0
+2                                                                                                                                             2.1
+3                                                                                                                                             0.9
+4                                                                                                                                             2.4
+5                                                                                                                                             1.8
+6                                                                                                                                             2.9
+  Hoeveel van zulke fouten in een getuigenverklaring zijn naar uw mening voldoende om de verklaring buiten beschouwing te laten? - Aantal fouten...36
+1                                                                                                                                                 2.3
+2                                                                                                                                                 2.2
+3                                                                                                                                                 0.9
+4                                                                                                                                                 2.6
+5                                                                                                                                                 1.8
+6                                                                                                                                                 1.9
+  Hoeveel van zulke fouten in een getuigenverklaring zouden naar uw mening genoeg zijn om de getuige zelf buiten beschouwing te laten? - Aantal fouten...37
+1                                                                                                                                                       2.5
+2                                                                                                                                                       1.3
+3                                                                                                                                                       3.0
+4                                                                                                                                                       4.1
+5                                                                                                                                                       2.9
+6                                                                                                                                                       3.9
+  Hoeveel van zulke fouten in een getuigenverklaring zouden er naar uw mening toe leiden dat een rechter in uw rechtsgebied het bewijs buiten beschouwing laat? - Aantal fouten...38
+1                                                                                                                                                                                2.2
+2                                                                                                                                                                                 NA
+3                                                                                                                                                                                2.9
+4                                                                                                                                                                                4.0
+5                                                                                                                                                                                 NA
+6                                                                                                                                                                               10.0
+  Hoeveel van zulke fouten in een getuigenverklaring zijn volgens u nodig voordat u zou overwegen een deskundige in te schakelen om de rechter uit te leggen hoe het menselijk geheugen werkt? - Aantal fouten...39
+1                                                                                                                                                                                                                NA
+2                                                                                                                                                                                                               3.5
+3                                                                                                                                                                                                                NA
+4                                                                                                                                                                                                               3.0
+5                                                                                                                                                                                                               0.8
+6                                                                                                                                                                                                               3.1
+  Hoeveel van zulke fouten in een getuigenverklaring zouden er naar uw mening in het algemeen toe leiden dat een gemiddeld persoon het belang van het getuige bewijs verlaagt? - Aantal fouten...40
+1                                                                                                                                                                                               4.9
+2                                                                                                                                                                                                NA
+3                                                                                                                                                                                               1.8
+4                                                                                                                                                                                               5.5
+5                                                                                                                                                                                               2.0
+6                                                                                                                                                                                               5.0
+  Hoeveel van zulke fouten in een getuigenverklaring zijn naar uw mening voldoende om de verklaring onbetrouwbaar te achten? - Aantal fouten...41
+1                                                                                                                                             0.9
+2                                                                                                                                             0.7
+3                                                                                                                                             2.5
+4                                                                                                                                             0.9
+5                                                                                                                                             0.8
+6                                                                                                                                             3.0
+  Hoeveel van zulke fouten in een getuigenverklaring zijn naar uw mening voldoende om de verklaring buiten beschouwing te laten? - Aantal fouten...42
+1                                                                                                                                                 0.8
+2                                                                                                                                                 0.7
+3                                                                                                                                                 1.0
+4                                                                                                                                                 0.8
+5                                                                                                                                                 1.9
+6                                                                                                                                                 2.8
+  Hoeveel van zulke fouten in een getuigenverklaring zouden naar uw mening genoeg zijn om de getuige zelf buiten beschouwing te laten? - Aantal fouten...43
+1                                                                                                                                                       1.0
+2                                                                                                                                                       0.7
+3                                                                                                                                                       3.0
+4                                                                                                                                                       0.9
+5                                                                                                                                                       1.8
+6                                                                                                                                                       5.1
+  Hoeveel van zulke fouten in een getuigenverklaring zouden er naar uw mening toe leiden dat een rechter in uw rechtsgebied het bewijs buiten beschouwing laat? - Aantal fouten...44
+1                                                                                                                                                                                0.0
+2                                                                                                                                                                                7.0
+3                                                                                                                                                                                2.9
+4                                                                                                                                                                                0.8
+5                                                                                                                                                                                 NA
+6                                                                                                                                                                                8.3
+  Hoeveel van zulke fouten in een getuigenverklaring zijn volgens u nodig voordat u zou overwegen een deskundige in te schakelen om de rechter uit te leggen hoe het menselijk geheugen werkt? - Aantal fouten...45
+1                                                                                                                                                                                                               1.6
+2                                                                                                                                                                                                               2.9
+3                                                                                                                                                                                                                NA
+4                                                                                                                                                                                                               0.9
+5                                                                                                                                                                                                               0.9
+6                                                                                                                                                                                                               3.0
+  Hoeveel van zulke fouten in een getuigenverklaring zouden er naar uw mening in het algemeen toe leiden dat een gemiddeld persoon het belang van het getuige bewijs verlaagt? - Aantal fouten...46
+1                                                                                                                                                                                               0.0
+2                                                                                                                                                                                               3.8
+3                                                                                                                                                                                               2.9
+4                                                                                                                                                                                               0.9
+5                                                                                                                                                                                               1.9
+6                                                                                                                                                                                               5.0
+  FL_26 - Block Randomizer - Display Order
+1                        FL_29|FL_60|FL_30
+2                        FL_60|FL_30|FL_29
+3                        FL_29|FL_30|FL_60
+4                        FL_29|FL_60|FL_30
+5                        FL_30|FL_29|FL_60
+6                        FL_30|FL_60|FL_29
+         FL_32 - Block Randomizer - Display Order
+1 Case1Q1|Case1Q6|Case1Q4|Case1Q2|Case1Q5|Case1Q3
+2 Case1Q3|Case1Q1|Case1Q5|Case1Q2|Case1Q4|Case1Q6
+3 Case1Q5|Case1Q4|Case1Q6|Case1Q2|Case1Q1|Case1Q3
+4 Case1Q4|Case1Q1|Case1Q2|Case1Q5|Case1Q6|Case1Q3
+5 Case1Q2|Case1Q5|Case1Q3|Case1Q4|Case1Q1|Case1Q6
+6 Case1Q2|Case1Q6|Case1Q3|Case1Q4|Case1Q1|Case1Q5
+         FL_31 - Block Randomizer - Display Order
+1 Case2Q2|Case2Q3|Case2Q5|Case2Q4|Case2Q1|Case2Q6
+2 Case2Q6|Case2Q2|Case2Q3|Case2Q1|Case2Q4|Case2Q5
+3 Case2Q2|Case2Q5|Case2Q1|Case2Q6|Case2Q3|Case2Q4
+4 Case2Q2|Case2Q5|Case2Q3|Case2Q1|Case2Q4|Case2Q6
+5 Case2Q4|Case2Q1|Case2Q3|Case2Q6|Case2Q2|Case2Q5
+6 Case2Q2|Case2Q3|Case2Q6|Case2Q1|Case2Q4|Case2Q5
+         FL_61 - Block Randomizer - Display Order
+1 Case3Q3|Case3Q5|Case3Q1|Case3Q2|Case3Q4|Case3Q6
+2 Case3Q1|Case3Q4|Case3Q2|Case3Q6|Case3Q3|Case3Q5
+3 Case3Q2|Case3Q5|Case3Q6|Case3Q3|Case3Q1|Case3Q4
+4 Case3Q5|Case3Q2|Case3Q3|Case3Q1|Case3Q6|Case3Q4
+5 Case3Q2|Case3Q1|Case3Q6|Case3Q4|Case3Q3|Case3Q5
+6 Case3Q6|Case3Q4|Case3Q5|Case3Q2|Case3Q3|Case3Q1</code></pre>
+</div>
+</div>
+<p>At this stage, you may notice:</p>
+<ul>
+<li>Many long variable names</li>
+<li>Several variables not relevant for analysis</li>
+<li>Multiple columns corresponding to scenario items</li>
+<li>We will now clean and prepare the dataset.</li>
+</ul>
+</section>
+</section>
+<section id="cleaning-and-preparing-the-data" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="cleaning-and-preparing-the-data"><span class="header-section-number">5.2</span> Cleaning and Preparing the Data</h2>
+<section id="create-participant-column" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="create-participant-column"><span class="header-section-number">5.2.1</span> Create participant column</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dat_original<span class="sc">$</span>participants <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(dat_original),<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="rename-question-columns-to-x1-x18" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="rename-question-columns-to-x1-x18"><span class="header-section-number">5.2.2</span> Rename question columns to x1-x18</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_original <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">"x"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">18</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="dv">29</span><span class="sc">:</span><span class="dv">46</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="rename-country-column" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="rename-country-column"><span class="header-section-number">5.2.3</span> Rename country column</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country =</span> <span class="fu">case_when</span>(<span class="st">`</span><span class="at">List of Countries...28</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Netherlands"</span> <span class="sc">~</span> <span class="st">"NL"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                      <span class="st">`</span><span class="at">List of Countries...28</span><span class="st">`</span>  <span class="sc">==</span> <span class="st">"Belgium"</span> <span class="sc">~</span> <span class="st">"BE"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                      <span class="st">`</span><span class="at">List of Countries...28</span><span class="st">`</span>  <span class="sc">==</span> <span class="st">"United States of America"</span> <span class="sc">~</span> <span class="st">"USA"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="rename-occupation-column" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="rename-occupation-column"><span class="header-section-number">5.2.4</span> Rename occupation column</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setnames</span>(dat_analysis, <span class="at">old =</span> <span class="st">"Wat is uw huidige beroep? - Selected Choice"</span>, <span class="at">new =</span>  <span class="st">"Occupation"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="recode-never-12-responses-to-na" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5" class="anchored" data-anchor-id="recode-never-12-responses-to-na"><span class="header-section-number">5.2.5</span> Recode “never” (=12) responses to NA</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"x1"</span>,<span class="st">"x2"</span>,<span class="st">"x3"</span>,<span class="st">"x4"</span>,<span class="st">"x5"</span>,<span class="st">"x6"</span>,<span class="st">"x7"</span>,<span class="st">"x8"</span>,<span class="st">"x9"</span>,<span class="st">"x10"</span>,<span class="st">"x11"</span>,<span class="st">"x12"</span>,<span class="st">"x13"</span>,<span class="st">"x14"</span>,<span class="st">"x15"</span>,<span class="st">"x16"</span>,<span class="st">"x17"</span>,<span class="st">"x18"</span>), <span class="sc">~</span><span class="fu">replace_na</span>(., <span class="dv">12</span>)) <span class="co"># this is to make the option "never" in analyzable variable.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="keep-relevant-participants" class="level3" data-number="5.2.6">
+<h3 data-number="5.2.6" class="anchored" data-anchor-id="keep-relevant-participants"><span class="header-section-number">5.2.6</span> Keep Relevant Participants</h3>
+<section id="step-1-keep-participants-who-completed-at-least-one-scenario" class="level4" data-number="5.2.6.1">
+<h4 data-number="5.2.6.1" class="anchored" data-anchor-id="step-1-keep-participants-who-completed-at-least-one-scenario"><span class="header-section-number">5.2.6.1</span> Step 1: Keep participants who completed at least one scenario</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Progress <span class="sc">&gt;=</span> <span class="dv">49</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-2-keep-participants-from-belgium-or-the-netherlands" class="level4" data-number="5.2.6.2">
+<h4 data-number="5.2.6.2" class="anchored" data-anchor-id="step-2-keep-participants-from-belgium-or-the-netherlands"><span class="header-section-number">5.2.6.2</span> Step 2: Keep participants from Belgium or the Netherlands</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"NL"</span>, <span class="st">"BE"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-3-logical-age-work-consistency" class="level4" data-number="5.2.6.3">
+<h4 data-number="5.2.6.3" class="anchored" data-anchor-id="step-3-logical-age-work-consistency"><span class="header-section-number">5.2.6.3</span> Step 3: Logical age-work consistency</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Leeftijd (in jaren)</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Hoeveel jaren werkt u ongeveer al in het rechtssysteem?</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">18</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-4-judges-must-have-at-least-5-years-of-experience" class="level4" data-number="5.2.6.4">
+<h4 data-number="5.2.6.4" class="anchored" data-anchor-id="step-4-judges-must-have-at-least-5-years-of-experience"><span class="header-section-number">5.2.6.4</span> Step 4: Judges must have at least 5 years of experience</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(Occupation <span class="sc">==</span> <span class="st">"Rechter"</span> <span class="sc">&amp;</span> <span class="st">`</span><span class="at">Hoeveel jaren werkt u ongeveer al in het rechtssysteem?</span><span class="st">`</span> <span class="sc">&lt;</span> <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-5-minimum-survey-duration" class="level4" data-number="5.2.6.5">
+<h4 data-number="5.2.6.5" class="anchored" data-anchor-id="step-5-minimum-survey-duration"><span class="header-section-number">5.2.6.5</span> Step 5: Minimum survey duration</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Duration (in seconds)</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This leaves us with 69 participants just as in the original article.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dat_analysis)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 69</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="create-dataset-for-analysis" class="level3" data-number="5.2.7">
+<h3 data-number="5.2.7" class="anchored" data-anchor-id="create-dataset-for-analysis"><span class="header-section-number">5.2.7</span> Create dataset for analysis</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dat_analysis_wide <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    participants,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    Country,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">starts_with</span>(<span class="st">"x"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_analysis_wide)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  participants Country   x1   x2   x3   x4   x5   x6   x7   x8   x9  x10  x11
+1            1      BE  1.5  1.6  1.2  0.6  1.5  0.0  2.0  2.3  2.5  2.2 12.0
+2            2      NL  3.3  6.6  1.6 12.0 12.0 12.0  2.1  2.2  1.3 12.0  3.5
+3            3      NL  2.9  2.9  6.1  5.0 12.0  3.9  0.9  0.9  3.0  2.9 12.0
+4            4      NL 12.0  2.9  3.0 12.0  1.4  5.0  2.4  2.6  4.1  4.0  3.0
+5            5      NL  0.8  0.7  1.0  1.9  1.0  0.8  1.8  1.8  2.9 12.0  0.8
+6            7      NL 12.0 12.0 12.0 12.0 12.0 12.0 10.0 12.0 12.0 12.0 12.0
+   x12 x13  x14 x15  x16  x17  x18
+1  4.9 0.9  0.8 1.0  0.0  1.6  0.0
+2 12.0 0.7  0.7 0.7  7.0  2.9  3.8
+3  1.8 2.5  1.0 3.0  2.9 12.0  2.9
+4  5.5 0.9  0.8 0.9  0.8  0.9  0.9
+5  2.0 0.8  1.9 1.8 12.0  0.9  1.9
+6  2.9 4.3 12.0 1.3 12.0  6.8 10.0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="wide-vs-long-format" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="wide-vs-long-format"><span class="header-section-number">5.3</span> Wide vs Long Format</h2>
+<p>Currently, each participant has <strong>one row</strong>, and each question is stored in a separate column (<code>x1</code> to <code>x18</code>; see above). This is called <strong>wide format</strong>.</p>
+<p>However, multilevel models require <strong>long format</strong>, where: - Each row represents one participant-item combination - Each participant therefore has multiple rows</p>
+<p>Reshaping data is a crucial skill in advanced data analysis.</p>
+<section id="convert-to-long-format" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="convert-to-long-format"><span class="header-section-number">5.3.1</span> Convert to Long Format</h3>
+<p>We use <code>pivot_longer()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dat_analysis_long <span class="ot">&lt;-</span> dat_analysis_wide <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"x"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Questions"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Memory_errors"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, each participant contributes 18 rows — one per question.</p>
+</section>
+<section id="create-scenario-variable" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="create-scenario-variable"><span class="header-section-number">5.3.2</span> Create Scenario Variable</h3>
+<p>Each scenario contains six items: - x1–x6 → Scenario 1 - x7–x12 → Scenario 2 - x13–x18 → Scenario 3</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create grouping variable for scenario</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>dat_analysis_long <span class="ot">&lt;-</span> dat_analysis_long <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Scenario =</span> <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x1"</span>, <span class="st">"scen1"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x2"</span>, <span class="st">"scen1"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x3"</span>, <span class="st">"scen1"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x4"</span>, <span class="st">"scen1"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x5"</span>, <span class="st">"scen1"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x6"</span>, <span class="st">"scen1"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x7"</span>, <span class="st">"scen2"</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x8"</span>, <span class="st">"scen2"</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x9"</span>, <span class="st">"scen2"</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x10"</span>, <span class="st">"scen2"</span>,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x11"</span>, <span class="st">"scen2"</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">ifelse</span>(Questions <span class="sc">==</span> <span class="st">"x12"</span>, <span class="st">"scen2"</span>,</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"scen3"</span>)))))))))))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="set-scenario-as-factor-and-set-reference-group" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="set-scenario-as-factor-and-set-reference-group"><span class="header-section-number">5.3.3</span> Set scenario as factor and set reference group</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dat_analysis_long<span class="sc">$</span>Scenario <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dat_analysis_long<span class="sc">$</span>Scenario)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dat_analysis_long<span class="sc">$</span>Scenario  <span class="ot">&lt;-</span> <span class="fu">relevel</span>(dat_analysis_long<span class="sc">$</span>Scenario , <span class="at">ref =</span> <span class="st">"scen2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="data-visualization" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="data-visualization"><span class="header-section-number">5.4</span> Data Visualization</h2>
+<p>Before modeling, it is always helpful to visualize the data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_analysis_long, <span class="fu">aes</span>(<span class="at">x =</span> Scenario, <span class="at">y =</span> Memory_errors)) <span class="sc">+</span>   </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span>   <span class="fu">theme_minimal</span>() <span class="sc">+</span>   </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Memory Errors"</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="chapter5_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-multilevel-data" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="plot-multilevel-data"><span class="header-section-number">5.5</span> Plot multilevel data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_analysis_long, <span class="fu">aes</span>(<span class="at">x =</span> Scenario, <span class="at">y =</span> Memory_errors, <span class="at">group =</span> participants)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Individual participant trajectories (random slopes)</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Individual data points</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Overlay average trend (fixed effect)</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"line"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Memory Errors"</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Memory Errors Across Scenarios"</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Blue lines: individual participants (random slopes/intercepts)</span><span class="sc">\n</span><span class="st">Red line: group mean (fixed effect)"</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="chapter5_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Because participants contribute multiple observations, the points are clustered within individuals.</p>
+</section>
+<section id="multilevel-model" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="multilevel-model"><span class="header-section-number">5.6</span> Multilevel Model</h2>
+<p>We now fit a linear mixed-effects model.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Memory_errors <span class="sc">~</span> Scenario <span class="sc">+</span> (Scenario <span class="sc">|</span> participants),   </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> dat_analysis_long)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: Memory_errors ~ Scenario + (Scenario | participants)
+   Data: dat_analysis_long
+
+REML criterion at convergence: 6606.4
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.6554 -0.5758 -0.1165  0.3510  3.0664 
+
+Random effects:
+ Groups       Name          Variance Std.Dev. Corr       
+ participants (Intercept)   9.625    3.102               
+              Scenarioscen1 8.354    2.890    -0.47      
+              Scenarioscen3 8.672    2.945    -0.44  0.36
+ Residual                   8.815    2.969               
+Number of obs: 1242, groups:  participants, 69
+
+Fixed effects:
+              Estimate Std. Error t value
+(Intercept)     6.2121     0.4010  15.492
+Scenarioscen1  -0.7324     0.4045  -1.810
+Scenarioscen3  -1.1295     0.4102  -2.753
+
+Correlation of Fixed Effects:
+            (Intr) Scnrs1
+Scenariscn1 -0.505       
+Scenariscn3 -0.488  0.396</code></pre>
+</div>
+</div>
+<p>This model includes:</p>
+<ul>
+<li><p><strong>Fixed effect of Scenario</strong> (average differences between scenarios)</p></li>
+<li><p><strong>Random intercepts</strong> (participants differ in overall error levels)</p></li>
+<li><p><strong>Random slopes</strong> (participants differ in scenario effects)</p></li>
+</ul>
+</section>
+<section id="plot-the-model-with-flexplot" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="plot-the-model-with-flexplot"><span class="header-section-number">5.7</span> plot the model with Flexplot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(model1,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">sample =</span> <span class="dv">69</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="chapter5_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="why-not-use-a-regular-anova" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="why-not-use-a-regular-anova"><span class="header-section-number">5.8</span> Why Not Use a Regular ANOVA?</h2>
+<p>If we ignored the nested structure and treated all observations as independent, we would:</p>
+<ul>
+<li><p>Underestimate standard errors</p></li>
+<li><p>Inflate Type I error rates</p></li>
+<li><p>Risk incorrect conclusions</p></li>
+</ul>
+<p>Multilevel models account for <strong>individual differences</strong> explicitly. However, if you only want to take into account the dependency and are interested in the fixed effects, simpler solutions exist such as:</p>
+<section id="optional-cluster-robust-standard-errors" class="level4" data-number="5.8.0.1">
+<h4 data-number="5.8.0.1" class="anchored" data-anchor-id="optional-cluster-robust-standard-errors"><span class="header-section-number">5.8.0.1</span> Optional: Cluster-robust standard errors</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Memory_errors <span class="sc">~</span> Scenario, <span class="at">data =</span> dat_analysis_long)  </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(lm_model, <span class="at">vcov =</span> <span class="fu">vcovCL</span>(lm_model, <span class="at">cluster =</span> <span class="sc">~</span>participants))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+              Estimate Std. Error t value  Pr(&gt;|t|)    
+(Intercept)    6.21208    0.40130 15.4797 &lt; 2.2e-16 ***
+Scenarioscen1 -0.73237    0.40487 -1.8089  0.070711 .  
+Scenarioscen3 -1.12947    0.41054 -2.7512  0.006025 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section id="optional-generalized-estimating-equations" class="level3" data-number="5.8.1">
+<h3 data-number="5.8.1" class="anchored" data-anchor-id="optional-generalized-estimating-equations"><span class="header-section-number">5.8.1</span> Optional: Generalized Estimating Equations</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gee_outcome <span class="ot">&lt;-</span> <span class="fu">gee</span>(<span class="at">formula =</span> Memory_errors <span class="sc">~</span> Scenario,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> participants,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> dat_analysis_long,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> gaussian,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">corstr =</span> <span class="st">"independence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Beginning Cgee S-function, @(#) geeformula.q 4.13 98/01/27</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>running glm to get initial regression estimate</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) Scenarioscen1 Scenarioscen3 
+    6.2120773    -0.7323671    -1.1294686 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gee_outcome)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ GEE:  GENERALIZED LINEAR MODELS FOR DEPENDENT DATA
+ gee S-function, version 4.13 modified 98/01/27 (1998) 
+
+Model:
+ Link:                      Identity 
+ Variance to Mean Relation: Gaussian 
+ Correlation Structure:     Independent 
+
+Call:
+gee(formula = Memory_errors ~ Scenario, id = participants, data = dat_analysis_long, 
+    family = gaussian, corstr = "independence")
+
+Summary of Residuals:
+      Min        1Q    Median        3Q       Max 
+-6.212077 -3.512077 -1.579710  5.787923  6.917391 
+
+
+Coefficients:
+                Estimate Naive S.E.   Naive z Robust S.E.  Robust z
+(Intercept)    6.2120773  0.2113749 29.388913   0.3980640 15.605727
+Scenarioscen1 -0.7323671  0.2989292 -2.449969   0.4016034 -1.823608
+Scenarioscen3 -1.1294686  0.2989292 -3.778382   0.4072298 -2.773541
+
+Estimated Scale Parameter:  18.49724
+Number of Iterations:  1
+
+Working Correlation
+      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
+ [1,]    1    0    0    0    0    0    0    0    0     0     0     0     0
+ [2,]    0    1    0    0    0    0    0    0    0     0     0     0     0
+ [3,]    0    0    1    0    0    0    0    0    0     0     0     0     0
+ [4,]    0    0    0    1    0    0    0    0    0     0     0     0     0
+ [5,]    0    0    0    0    1    0    0    0    0     0     0     0     0
+ [6,]    0    0    0    0    0    1    0    0    0     0     0     0     0
+ [7,]    0    0    0    0    0    0    1    0    0     0     0     0     0
+ [8,]    0    0    0    0    0    0    0    1    0     0     0     0     0
+ [9,]    0    0    0    0    0    0    0    0    1     0     0     0     0
+[10,]    0    0    0    0    0    0    0    0    0     1     0     0     0
+[11,]    0    0    0    0    0    0    0    0    0     0     1     0     0
+[12,]    0    0    0    0    0    0    0    0    0     0     0     1     0
+[13,]    0    0    0    0    0    0    0    0    0     0     0     0     1
+[14,]    0    0    0    0    0    0    0    0    0     0     0     0     0
+[15,]    0    0    0    0    0    0    0    0    0     0     0     0     0
+[16,]    0    0    0    0    0    0    0    0    0     0     0     0     0
+[17,]    0    0    0    0    0    0    0    0    0     0     0     0     0
+[18,]    0    0    0    0    0    0    0    0    0     0     0     0     0
+      [,14] [,15] [,16] [,17] [,18]
+ [1,]     0     0     0     0     0
+ [2,]     0     0     0     0     0
+ [3,]     0     0     0     0     0
+ [4,]     0     0     0     0     0
+ [5,]     0     0     0     0     0
+ [6,]     0     0     0     0     0
+ [7,]     0     0     0     0     0
+ [8,]     0     0     0     0     0
+ [9,]     0     0     0     0     0
+[10,]     0     0     0     0     0
+[11,]     0     0     0     0     0
+[12,]     0     0     0     0     0
+[13,]     0     0     0     0     0
+[14,]     1     0     0     0     0
+[15,]     0     1     0     0     0
+[16,]     0     0     1     0     0
+[17,]     0     0     0     1     0
+[18,]     0     0     0     0     1</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.9</span> Summary</h2>
+<p>In this chapter, we extended our workflow from simple group comparisons to multilevel modeling. We: - Imported and cleaned a real dataset - Applied exclusion criteria - Reshaped data from wide to long format - Visualized nested data - Fit a linear mixed-effects model</p>
+<p>Multilevel modeling allows us to properly analyze clustered data while accounting for individual differences. These models are essential in psychology, education, medicine, and many other fields where repeated measurements are common.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./chapter4.html" class="pagination-link" aria-label="Real dataset">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Real dataset</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

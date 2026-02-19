@@ -16,6 +16,7 @@ book:
     - chapter2.qmd
     - chapter3.qmd
     - chapter4.qmd
+    - chapter5.qmd
     - references.qmd
   sidebar:
     style: docked
