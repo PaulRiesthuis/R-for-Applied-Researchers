@@ -383,36 +383,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#dataset" id="toc-dataset" class="nav-link active" data-scroll-target="#dataset"><span class="header-section-number">5.1</span> Dataset</a>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link active" data-scroll-target="#dataset"><span class="header-section-number">6</span> Dataset</a></li>
+  <li><a href="#load-in-data" id="toc-load-in-data" class="nav-link" data-scroll-target="#load-in-data"><span class="header-section-number">7</span> Load in Data</a></li>
+  <li><a href="#viewing-the-data" id="toc-viewing-the-data" class="nav-link" data-scroll-target="#viewing-the-data"><span class="header-section-number">8</span> Viewing the Data</a></li>
+  <li><a href="#cleaning-and-preparing-the-data" id="toc-cleaning-and-preparing-the-data" class="nav-link" data-scroll-target="#cleaning-and-preparing-the-data"><span class="header-section-number">9</span> Cleaning and Preparing the Data</a>
   <ul class="collapse">
-  <li><a href="#load-in-data" id="toc-load-in-data" class="nav-link" data-scroll-target="#load-in-data"><span class="header-section-number">5.1.1</span> Load in Data</a></li>
-  <li><a href="#viewing-the-data" id="toc-viewing-the-data" class="nav-link" data-scroll-target="#viewing-the-data"><span class="header-section-number">5.1.2</span> Viewing the Data</a></li>
-  </ul></li>
-  <li><a href="#cleaning-and-preparing-the-data" id="toc-cleaning-and-preparing-the-data" class="nav-link" data-scroll-target="#cleaning-and-preparing-the-data"><span class="header-section-number">5.2</span> Cleaning and Preparing the Data</a>
+  <li><a href="#create-participant-column" id="toc-create-participant-column" class="nav-link" data-scroll-target="#create-participant-column"><span class="header-section-number">9.1</span> Create participant column</a></li>
+  <li><a href="#rename-question-columns-to-x1-x18" id="toc-rename-question-columns-to-x1-x18" class="nav-link" data-scroll-target="#rename-question-columns-to-x1-x18"><span class="header-section-number">9.2</span> Rename question columns to x1-x18</a></li>
+  <li><a href="#rename-country-column" id="toc-rename-country-column" class="nav-link" data-scroll-target="#rename-country-column"><span class="header-section-number">9.3</span> Rename country column</a></li>
+  <li><a href="#rename-occupation-column" id="toc-rename-occupation-column" class="nav-link" data-scroll-target="#rename-occupation-column"><span class="header-section-number">9.4</span> Rename occupation column</a></li>
+  <li><a href="#recode-never-12-responses-to-na" id="toc-recode-never-12-responses-to-na" class="nav-link" data-scroll-target="#recode-never-12-responses-to-na"><span class="header-section-number">9.5</span> Recode “never” (=12) responses to NA</a></li>
+  <li><a href="#keep-relevant-participants" id="toc-keep-relevant-participants" class="nav-link" data-scroll-target="#keep-relevant-participants"><span class="header-section-number">9.6</span> Keep Relevant Participants</a>
   <ul class="collapse">
-  <li><a href="#create-participant-column" id="toc-create-participant-column" class="nav-link" data-scroll-target="#create-participant-column"><span class="header-section-number">5.2.1</span> Create participant column</a></li>
-  <li><a href="#rename-question-columns-to-x1-x18" id="toc-rename-question-columns-to-x1-x18" class="nav-link" data-scroll-target="#rename-question-columns-to-x1-x18"><span class="header-section-number">5.2.2</span> Rename question columns to x1-x18</a></li>
-  <li><a href="#rename-country-column" id="toc-rename-country-column" class="nav-link" data-scroll-target="#rename-country-column"><span class="header-section-number">5.2.3</span> Rename country column</a></li>
-  <li><a href="#rename-occupation-column" id="toc-rename-occupation-column" class="nav-link" data-scroll-target="#rename-occupation-column"><span class="header-section-number">5.2.4</span> Rename occupation column</a></li>
-  <li><a href="#recode-never-12-responses-to-na" id="toc-recode-never-12-responses-to-na" class="nav-link" data-scroll-target="#recode-never-12-responses-to-na"><span class="header-section-number">5.2.5</span> Recode “never” (=12) responses to NA</a></li>
-  <li><a href="#keep-relevant-participants" id="toc-keep-relevant-participants" class="nav-link" data-scroll-target="#keep-relevant-participants"><span class="header-section-number">5.2.6</span> Keep Relevant Participants</a></li>
-  <li><a href="#create-dataset-for-analysis" id="toc-create-dataset-for-analysis" class="nav-link" data-scroll-target="#create-dataset-for-analysis"><span class="header-section-number">5.2.7</span> Create dataset for analysis</a></li>
+  <li><a href="#step-1-keep-participants-who-completed-at-least-one-scenario" id="toc-step-1-keep-participants-who-completed-at-least-one-scenario" class="nav-link" data-scroll-target="#step-1-keep-participants-who-completed-at-least-one-scenario"><span class="header-section-number">9.6.1</span> Step 1: Keep participants who completed at least one scenario</a></li>
+  <li><a href="#step-2-keep-participants-from-belgium-or-the-netherlands" id="toc-step-2-keep-participants-from-belgium-or-the-netherlands" class="nav-link" data-scroll-target="#step-2-keep-participants-from-belgium-or-the-netherlands"><span class="header-section-number">9.6.2</span> Step 2: Keep participants from Belgium or the Netherlands</a></li>
+  <li><a href="#step-3-logical-age-work-consistency" id="toc-step-3-logical-age-work-consistency" class="nav-link" data-scroll-target="#step-3-logical-age-work-consistency"><span class="header-section-number">9.6.3</span> Step 3: Logical age-work consistency</a></li>
+  <li><a href="#step-4-judges-must-have-at-least-5-years-of-experience" id="toc-step-4-judges-must-have-at-least-5-years-of-experience" class="nav-link" data-scroll-target="#step-4-judges-must-have-at-least-5-years-of-experience"><span class="header-section-number">9.6.4</span> Step 4: Judges must have at least 5 years of experience</a></li>
+  <li><a href="#step-5-minimum-survey-duration" id="toc-step-5-minimum-survey-duration" class="nav-link" data-scroll-target="#step-5-minimum-survey-duration"><span class="header-section-number">9.6.5</span> Step 5: Minimum survey duration</a></li>
   </ul></li>
-  <li><a href="#wide-vs-long-format" id="toc-wide-vs-long-format" class="nav-link" data-scroll-target="#wide-vs-long-format"><span class="header-section-number">5.3</span> Wide vs Long Format</a>
+  <li><a href="#create-dataset-for-analysis" id="toc-create-dataset-for-analysis" class="nav-link" data-scroll-target="#create-dataset-for-analysis"><span class="header-section-number">9.7</span> Create dataset for analysis</a></li>
+  </ul></li>
+  <li><a href="#wide-vs-long-format" id="toc-wide-vs-long-format" class="nav-link" data-scroll-target="#wide-vs-long-format"><span class="header-section-number">10</span> Wide vs Long Format</a>
   <ul class="collapse">
-  <li><a href="#convert-to-long-format" id="toc-convert-to-long-format" class="nav-link" data-scroll-target="#convert-to-long-format"><span class="header-section-number">5.3.1</span> Convert to Long Format</a></li>
-  <li><a href="#create-scenario-variable" id="toc-create-scenario-variable" class="nav-link" data-scroll-target="#create-scenario-variable"><span class="header-section-number">5.3.2</span> Create Scenario Variable</a></li>
-  <li><a href="#set-scenario-as-factor-and-set-reference-group" id="toc-set-scenario-as-factor-and-set-reference-group" class="nav-link" data-scroll-target="#set-scenario-as-factor-and-set-reference-group"><span class="header-section-number">5.3.3</span> Set scenario as factor and set reference group</a></li>
+  <li><a href="#convert-to-long-format" id="toc-convert-to-long-format" class="nav-link" data-scroll-target="#convert-to-long-format"><span class="header-section-number">10.1</span> Convert to Long Format</a></li>
+  <li><a href="#create-scenario-variable" id="toc-create-scenario-variable" class="nav-link" data-scroll-target="#create-scenario-variable"><span class="header-section-number">10.2</span> Create Scenario Variable</a></li>
+  <li><a href="#set-scenario-as-factor-and-set-reference-group" id="toc-set-scenario-as-factor-and-set-reference-group" class="nav-link" data-scroll-target="#set-scenario-as-factor-and-set-reference-group"><span class="header-section-number">10.3</span> Set scenario as factor and set reference group</a></li>
   </ul></li>
-  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization"><span class="header-section-number">5.4</span> Data Visualization</a></li>
-  <li><a href="#plot-multilevel-data" id="toc-plot-multilevel-data" class="nav-link" data-scroll-target="#plot-multilevel-data"><span class="header-section-number">5.5</span> Plot multilevel data</a></li>
-  <li><a href="#multilevel-model" id="toc-multilevel-model" class="nav-link" data-scroll-target="#multilevel-model"><span class="header-section-number">5.6</span> Multilevel Model</a></li>
-  <li><a href="#plot-the-model-with-flexplot" id="toc-plot-the-model-with-flexplot" class="nav-link" data-scroll-target="#plot-the-model-with-flexplot"><span class="header-section-number">5.7</span> plot the model with Flexplot</a></li>
-  <li><a href="#why-not-use-a-regular-anova" id="toc-why-not-use-a-regular-anova" class="nav-link" data-scroll-target="#why-not-use-a-regular-anova"><span class="header-section-number">5.8</span> Why Not Use a Regular ANOVA?</a>
+  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization"><span class="header-section-number">11</span> Data Visualization</a></li>
+  <li><a href="#plot-multilevel-data" id="toc-plot-multilevel-data" class="nav-link" data-scroll-target="#plot-multilevel-data"><span class="header-section-number">12</span> Plot multilevel data</a></li>
+  <li><a href="#multilevel-model" id="toc-multilevel-model" class="nav-link" data-scroll-target="#multilevel-model"><span class="header-section-number">13</span> Multilevel Model</a>
   <ul class="collapse">
-  <li><a href="#optional-generalized-estimating-equations" id="toc-optional-generalized-estimating-equations" class="nav-link" data-scroll-target="#optional-generalized-estimating-equations"><span class="header-section-number">5.8.1</span> Optional: Generalized Estimating Equations</a></li>
+  <li><a href="#plot-the-model-with-flexplot" id="toc-plot-the-model-with-flexplot" class="nav-link" data-scroll-target="#plot-the-model-with-flexplot"><span class="header-section-number">13.1</span> plot the model with Flexplot</a></li>
   </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.9</span> Summary</a></li>
+  <li><a href="#why-not-use-a-regular-anova" id="toc-why-not-use-a-regular-anova" class="nav-link" data-scroll-target="#why-not-use-a-regular-anova"><span class="header-section-number">14</span> Why Not Use a Regular ANOVA?</a></li>
+  <li><a href="#optional-generalized-estimating-equations" id="toc-optional-generalized-estimating-equations" class="nav-link" data-scroll-target="#optional-generalized-estimating-equations"><span class="header-section-number">15</span> Optional: Generalized Estimating Equations</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -439,7 +444,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In the previous chapter, we worked with a real dataset and performed standard statistical analyses such as t-tests and reliability analyses. However, many real-world datasets contain <strong>nested or clustered data structures</strong>. This becomes especially relevant when we want to address questions about individual differences as we discussed in a previous meeting. In this chapter, we take the next step: working with <strong>multilevel data</strong> in R.</p>
+<p>In the previous chapter, we worked with a real dataset and performed standard statistical analyses such as t-tests and reliability analyses. However, many real-world datasets contain <strong>nested or clustered data structures</strong>. This becomes especially relevant when we want to address questions about individual differences as we discussed in a previous meting. In this chapter, we take the next step: working with <strong>multilevel data</strong> in R.</p>
 <p>In our example, legal professionals evaluated multiple scenarios. This means that each participant contributed multiple responses. The data are therefore <strong>not independent</strong> — responses are nested within individuals.</p>
 <p>By the end of this chapter, you will be able to:</p>
 <ul>
@@ -450,17 +455,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>interpret fixed and random effects</p></li>
 </ul>
 <p>These skills are essential when working with repeated measures, longitudinal designs, educational data, or any structure where observations are grouped within higher-level units.</p>
-<section id="dataset" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="dataset"><span class="header-section-number">5.1</span> Dataset</h2>
-<p>In this example, we use data from a study among legal professionals in Belgium and the Netherlands. Participants evaluated three different scenarios, each consisting of six items measuring memory errors <a href="https://github.com/PaulRiesthuis/R-for-Applied-Researchers/blob/main/Raw%20Data%20.xlsx">Download the dataset here.</a></p>
+<section id="dataset" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Dataset</h1>
+<p>In this example, we use data from a study among legal professionals in Belgium and the Netherlands. Participants evaluated three different scenarios, each consisting of six items measuring memory errors. Download the dataset here (<a href="https://github.com/PaulRiesthuis/R-for-Applied-Researchers/blob/main/Raw%20Data%20.xlsx">download dataset here</a></p>
 <p>Because each participant responded to multiple items across multiple scenarios, the dataset has a <strong>two-level structure</strong>:</p>
 <ul>
 <li>Level 1: Item responses</li>
 <li>Level 2: Participants</li>
 </ul>
 <p>This nested structure requires multilevel modeling.</p>
-<section id="load-in-data" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="load-in-data"><span class="header-section-number">5.1.1</span> Load in Data</h3>
+</section>
+<section id="load-in-data" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Load in Data</h1>
 <p>As before, we begin by loading the required packages and importing the dataset.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
@@ -470,16 +476,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flexplot)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gee)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>dat_original <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"Raw_Data.xlsx"</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dat_original <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dat_original)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>dat_original <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"Raw_Data.xlsx"</span>, <span class="at">skip =</span> <span class="dv">1</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>dat_original <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dat_original)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Again, we keep the original dataset untouched and perform all transformations on a new object when needed.</p>
 </section>
-<section id="viewing-the-data" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="viewing-the-data"><span class="header-section-number">5.1.2</span> Viewing the Data</h3>
+<section id="viewing-the-data" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Viewing the Data</h1>
 <p>First, inspect the dataset:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(dat_original)</span>
@@ -782,17 +786,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now clean and prepare the dataset.</li>
 </ul>
 </section>
-</section>
-<section id="cleaning-and-preparing-the-data" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="cleaning-and-preparing-the-data"><span class="header-section-number">5.2</span> Cleaning and Preparing the Data</h2>
-<section id="create-participant-column" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="create-participant-column"><span class="header-section-number">5.2.1</span> Create participant column</h3>
+<section id="cleaning-and-preparing-the-data" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Cleaning and Preparing the Data</h1>
+<section id="create-participant-column" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="create-participant-column"><span class="header-section-number">9.1</span> Create participant column</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dat_original<span class="sc">$</span>participants <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(dat_original),<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="rename-question-columns-to-x1-x18" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="rename-question-columns-to-x1-x18"><span class="header-section-number">5.2.2</span> Rename question columns to x1-x18</h3>
+<section id="rename-question-columns-to-x1-x18" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="rename-question-columns-to-x1-x18"><span class="header-section-number">9.2</span> Rename question columns to x1-x18</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_original <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(</span>
@@ -801,8 +804,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="rename-country-column" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="rename-country-column"><span class="header-section-number">5.2.3</span> Rename country column</h3>
+<section id="rename-country-column" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="rename-country-column"><span class="header-section-number">9.3</span> Rename country column</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country =</span> <span class="fu">case_when</span>(<span class="st">`</span><span class="at">List of Countries...28</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Netherlands"</span> <span class="sc">~</span> <span class="st">"NL"</span>,</span>
@@ -811,51 +814,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="rename-occupation-column" class="level3" data-number="5.2.4">
-<h3 data-number="5.2.4" class="anchored" data-anchor-id="rename-occupation-column"><span class="header-section-number">5.2.4</span> Rename occupation column</h3>
+<section id="rename-occupation-column" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="rename-occupation-column"><span class="header-section-number">9.4</span> Rename occupation column</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setnames</span>(dat_analysis, <span class="at">old =</span> <span class="st">"Wat is uw huidige beroep? - Selected Choice"</span>, <span class="at">new =</span>  <span class="st">"Occupation"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="recode-never-12-responses-to-na" class="level3" data-number="5.2.5">
-<h3 data-number="5.2.5" class="anchored" data-anchor-id="recode-never-12-responses-to-na"><span class="header-section-number">5.2.5</span> Recode “never” (=12) responses to NA</h3>
+<section id="recode-never-12-responses-to-na" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="recode-never-12-responses-to-na"><span class="header-section-number">9.5</span> Recode “never” (=12) responses to NA</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"x1"</span>,<span class="st">"x2"</span>,<span class="st">"x3"</span>,<span class="st">"x4"</span>,<span class="st">"x5"</span>,<span class="st">"x6"</span>,<span class="st">"x7"</span>,<span class="st">"x8"</span>,<span class="st">"x9"</span>,<span class="st">"x10"</span>,<span class="st">"x11"</span>,<span class="st">"x12"</span>,<span class="st">"x13"</span>,<span class="st">"x14"</span>,<span class="st">"x15"</span>,<span class="st">"x16"</span>,<span class="st">"x17"</span>,<span class="st">"x18"</span>), <span class="sc">~</span><span class="fu">replace_na</span>(., <span class="dv">12</span>)) <span class="co"># this is to make the option "never" in analyzable variable.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="keep-relevant-participants" class="level3" data-number="5.2.6">
-<h3 data-number="5.2.6" class="anchored" data-anchor-id="keep-relevant-participants"><span class="header-section-number">5.2.6</span> Keep Relevant Participants</h3>
-<section id="step-1-keep-participants-who-completed-at-least-one-scenario" class="level4" data-number="5.2.6.1">
-<h4 data-number="5.2.6.1" class="anchored" data-anchor-id="step-1-keep-participants-who-completed-at-least-one-scenario"><span class="header-section-number">5.2.6.1</span> Step 1: Keep participants who completed at least one scenario</h4>
+<section id="keep-relevant-participants" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="keep-relevant-participants"><span class="header-section-number">9.6</span> Keep Relevant Participants</h2>
+<section id="step-1-keep-participants-who-completed-at-least-one-scenario" class="level3" data-number="9.6.1">
+<h3 data-number="9.6.1" class="anchored" data-anchor-id="step-1-keep-participants-who-completed-at-least-one-scenario"><span class="header-section-number">9.6.1</span> Step 1: Keep participants who completed at least one scenario</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Progress <span class="sc">&gt;=</span> <span class="dv">49</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="step-2-keep-participants-from-belgium-or-the-netherlands" class="level4" data-number="5.2.6.2">
-<h4 data-number="5.2.6.2" class="anchored" data-anchor-id="step-2-keep-participants-from-belgium-or-the-netherlands"><span class="header-section-number">5.2.6.2</span> Step 2: Keep participants from Belgium or the Netherlands</h4>
+<section id="step-2-keep-participants-from-belgium-or-the-netherlands" class="level3" data-number="9.6.2">
+<h3 data-number="9.6.2" class="anchored" data-anchor-id="step-2-keep-participants-from-belgium-or-the-netherlands"><span class="header-section-number">9.6.2</span> Step 2: Keep participants from Belgium or the Netherlands</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"NL"</span>, <span class="st">"BE"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="step-3-logical-age-work-consistency" class="level4" data-number="5.2.6.3">
-<h4 data-number="5.2.6.3" class="anchored" data-anchor-id="step-3-logical-age-work-consistency"><span class="header-section-number">5.2.6.3</span> Step 3: Logical age-work consistency</h4>
+<section id="step-3-logical-age-work-consistency" class="level3" data-number="9.6.3">
+<h3 data-number="9.6.3" class="anchored" data-anchor-id="step-3-logical-age-work-consistency"><span class="header-section-number">9.6.3</span> Step 3: Logical age-work consistency</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Leeftijd (in jaren)</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Hoeveel jaren werkt u ongeveer al in het rechtssysteem?</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">18</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="step-4-judges-must-have-at-least-5-years-of-experience" class="level4" data-number="5.2.6.4">
-<h4 data-number="5.2.6.4" class="anchored" data-anchor-id="step-4-judges-must-have-at-least-5-years-of-experience"><span class="header-section-number">5.2.6.4</span> Step 4: Judges must have at least 5 years of experience</h4>
+<section id="step-4-judges-must-have-at-least-5-years-of-experience" class="level3" data-number="9.6.4">
+<h3 data-number="9.6.4" class="anchored" data-anchor-id="step-4-judges-must-have-at-least-5-years-of-experience"><span class="header-section-number">9.6.4</span> Step 4: Judges must have at least 5 years of experience</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(Occupation <span class="sc">==</span> <span class="st">"Rechter"</span> <span class="sc">&amp;</span> <span class="st">`</span><span class="at">Hoeveel jaren werkt u ongeveer al in het rechtssysteem?</span><span class="st">`</span> <span class="sc">&lt;</span> <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="step-5-minimum-survey-duration" class="level4" data-number="5.2.6.5">
-<h4 data-number="5.2.6.5" class="anchored" data-anchor-id="step-5-minimum-survey-duration"><span class="header-section-number">5.2.6.5</span> Step 5: Minimum survey duration</h4>
+<section id="step-5-minimum-survey-duration" class="level3" data-number="9.6.5">
+<h3 data-number="9.6.5" class="anchored" data-anchor-id="step-5-minimum-survey-duration"><span class="header-section-number">9.6.5</span> Step 5: Minimum survey duration</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dat_analysis <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Duration (in seconds)</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -869,8 +872,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="create-dataset-for-analysis" class="level3" data-number="5.2.7">
-<h3 data-number="5.2.7" class="anchored" data-anchor-id="create-dataset-for-analysis"><span class="header-section-number">5.2.7</span> Create dataset for analysis</h3>
+<section id="create-dataset-for-analysis" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="create-dataset-for-analysis"><span class="header-section-number">9.7</span> Create dataset for analysis</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dat_analysis_wide <span class="ot">&lt;-</span> dat_analysis <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
@@ -899,13 +902,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="wide-vs-long-format" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="wide-vs-long-format"><span class="header-section-number">5.3</span> Wide vs Long Format</h2>
+<section id="wide-vs-long-format" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Wide vs Long Format</h1>
 <p>Currently, each participant has <strong>one row</strong>, and each question is stored in a separate column (<code>x1</code> to <code>x18</code>; see above). This is called <strong>wide format</strong>.</p>
 <p>However, multilevel models require <strong>long format</strong>, where: - Each row represents one participant-item combination - Each participant therefore has multiple rows</p>
 <p>Reshaping data is a crucial skill in advanced data analysis.</p>
-<section id="convert-to-long-format" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="convert-to-long-format"><span class="header-section-number">5.3.1</span> Convert to Long Format</h3>
+<section id="convert-to-long-format" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="convert-to-long-format"><span class="header-section-number">10.1</span> Convert to Long Format</h2>
 <p>We use <code>pivot_longer()</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dat_analysis_long <span class="ot">&lt;-</span> dat_analysis_wide <span class="sc">%&gt;%</span></span>
@@ -917,8 +920,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Now, each participant contributes 18 rows — one per question.</p>
 </section>
-<section id="create-scenario-variable" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="create-scenario-variable"><span class="header-section-number">5.3.2</span> Create Scenario Variable</h3>
+<section id="create-scenario-variable" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="create-scenario-variable"><span class="header-section-number">10.2</span> Create Scenario Variable</h2>
 <p>Each scenario contains six items: - x1–x6 → Scenario 1 - x7–x12 → Scenario 2 - x13–x18 → Scenario 3</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create grouping variable for scenario</span></span>
@@ -938,16 +941,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"scen3"</span>)))))))))))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="set-scenario-as-factor-and-set-reference-group" class="level3" data-number="5.3.3">
-<h3 data-number="5.3.3" class="anchored" data-anchor-id="set-scenario-as-factor-and-set-reference-group"><span class="header-section-number">5.3.3</span> Set scenario as factor and set reference group</h3>
+<section id="set-scenario-as-factor-and-set-reference-group" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="set-scenario-as-factor-and-set-reference-group"><span class="header-section-number">10.3</span> Set scenario as factor and set reference group</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dat_analysis_long<span class="sc">$</span>Scenario <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dat_analysis_long<span class="sc">$</span>Scenario)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dat_analysis_long<span class="sc">$</span>Scenario  <span class="ot">&lt;-</span> <span class="fu">relevel</span>(dat_analysis_long<span class="sc">$</span>Scenario , <span class="at">ref =</span> <span class="st">"scen2"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
-<section id="data-visualization" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="data-visualization"><span class="header-section-number">5.4</span> Data Visualization</h2>
+<section id="data-visualization" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Data Visualization</h1>
 <p>Before modeling, it is always helpful to visualize the data.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_analysis_long, <span class="fu">aes</span>(<span class="at">x =</span> Scenario, <span class="at">y =</span> Memory_errors)) <span class="sc">+</span>   </span>
@@ -963,8 +966,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="plot-multilevel-data" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="plot-multilevel-data"><span class="header-section-number">5.5</span> Plot multilevel data</h2>
+<section id="plot-multilevel-data" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Plot multilevel data</h1>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat_analysis_long, <span class="fu">aes</span>(<span class="at">x =</span> Scenario, <span class="at">y =</span> Memory_errors, <span class="at">group =</span> participants)) <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Individual participant trajectories (random slopes)</span></span>
@@ -991,8 +994,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Because participants contribute multiple observations, the points are clustered within individuals.</p>
 </section>
-<section id="multilevel-model" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="multilevel-model"><span class="header-section-number">5.6</span> Multilevel Model</h2>
+<section id="multilevel-model" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Multilevel Model</h1>
 <p>We now fit a linear mixed-effects model.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Memory_errors <span class="sc">~</span> Scenario <span class="sc">+</span> (Scenario <span class="sc">|</span> participants),   </span>
@@ -1031,13 +1034,12 @@ Scenariscn3 -0.488  0.396</code></pre>
 </div>
 <p>This model includes:</p>
 <ul>
-<li><p><strong>Fixed effect of Scenario</strong> (average differences between scenarios)</p></li>
-<li><p><strong>Random intercepts</strong> (participants differ in overall error levels)</p></li>
-<li><p><strong>Random slopes</strong> (participants differ in scenario effects)</p></li>
+<li><strong>Fixed effect of Scenario</strong> (average differences between scenarios)</li>
+<li><strong>Random intercepts</strong> (participants differ in overall error levels)</li>
+<li><strong>Random slopes</strong> (participants differ in scenario effects)</li>
 </ul>
-</section>
-<section id="plot-the-model-with-flexplot" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="plot-the-model-with-flexplot"><span class="header-section-number">5.7</span> plot the model with Flexplot</h2>
+<section id="plot-the-model-with-flexplot" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="plot-the-model-with-flexplot"><span class="header-section-number">13.1</span> plot the model with Flexplot</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">visualize</span>(model1,</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">sample =</span> <span class="dv">69</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1050,126 +1052,17 @@ Scenariscn3 -0.488  0.396</code></pre>
 </div>
 </div>
 </section>
-<section id="why-not-use-a-regular-anova" class="level2" data-number="5.8">
-<h2 data-number="5.8" class="anchored" data-anchor-id="why-not-use-a-regular-anova"><span class="header-section-number">5.8</span> Why Not Use a Regular ANOVA?</h2>
-<p>If we ignored the nested structure and treated all observations as independent, we would:</p>
-<ul>
-<li><p>Underestimate standard errors</p></li>
-<li><p>Inflate Type I error rates</p></li>
-<li><p>Risk incorrect conclusions</p></li>
-</ul>
-<p>Multilevel models account for <strong>individual differences</strong> explicitly. However, if you only want to take into account the dependency and are interested in the fixed effects, simpler solutions exist such as:</p>
-<section id="optional-cluster-robust-standard-errors" class="level4" data-number="5.8.0.1">
-<h4 data-number="5.8.0.1" class="anchored" data-anchor-id="optional-cluster-robust-standard-errors"><span class="header-section-number">5.8.0.1</span> Optional: Cluster-robust standard errors</h4>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Memory_errors <span class="sc">~</span> Scenario, <span class="at">data =</span> dat_analysis_long)  </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(lm_model, <span class="at">vcov =</span> <span class="fu">vcovCL</span>(lm_model, <span class="at">cluster =</span> <span class="sc">~</span>participants))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-t test of coefficients:
-
-              Estimate Std. Error t value  Pr(&gt;|t|)    
-(Intercept)    6.21208    0.40130 15.4797 &lt; 2.2e-16 ***
-Scenarioscen1 -0.73237    0.40487 -1.8089  0.070711 .  
-Scenarioscen3 -1.12947    0.41054 -2.7512  0.006025 ** 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
 </section>
-<section id="optional-generalized-estimating-equations" class="level3" data-number="5.8.1">
-<h3 data-number="5.8.1" class="anchored" data-anchor-id="optional-generalized-estimating-equations"><span class="header-section-number">5.8.1</span> Optional: Generalized Estimating Equations</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gee_outcome <span class="ot">&lt;-</span> <span class="fu">gee</span>(<span class="at">formula =</span> Memory_errors <span class="sc">~</span> Scenario,</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> participants,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> dat_analysis_long,</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> gaussian,</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">corstr =</span> <span class="st">"independence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Beginning Cgee S-function, @(#) geeformula.q 4.13 98/01/27</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>running glm to get initial regression estimate</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  (Intercept) Scenarioscen1 Scenarioscen3 
-    6.2120773    -0.7323671    -1.1294686 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gee_outcome)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- GEE:  GENERALIZED LINEAR MODELS FOR DEPENDENT DATA
- gee S-function, version 4.13 modified 98/01/27 (1998) 
-
-Model:
- Link:                      Identity 
- Variance to Mean Relation: Gaussian 
- Correlation Structure:     Independent 
-
-Call:
-gee(formula = Memory_errors ~ Scenario, id = participants, data = dat_analysis_long, 
-    family = gaussian, corstr = "independence")
-
-Summary of Residuals:
-      Min        1Q    Median        3Q       Max 
--6.212077 -3.512077 -1.579710  5.787923  6.917391 
-
-
-Coefficients:
-                Estimate Naive S.E.   Naive z Robust S.E.  Robust z
-(Intercept)    6.2120773  0.2113749 29.388913   0.3980640 15.605727
-Scenarioscen1 -0.7323671  0.2989292 -2.449969   0.4016034 -1.823608
-Scenarioscen3 -1.1294686  0.2989292 -3.778382   0.4072298 -2.773541
-
-Estimated Scale Parameter:  18.49724
-Number of Iterations:  1
-
-Working Correlation
-      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
- [1,]    1    0    0    0    0    0    0    0    0     0     0     0     0
- [2,]    0    1    0    0    0    0    0    0    0     0     0     0     0
- [3,]    0    0    1    0    0    0    0    0    0     0     0     0     0
- [4,]    0    0    0    1    0    0    0    0    0     0     0     0     0
- [5,]    0    0    0    0    1    0    0    0    0     0     0     0     0
- [6,]    0    0    0    0    0    1    0    0    0     0     0     0     0
- [7,]    0    0    0    0    0    0    1    0    0     0     0     0     0
- [8,]    0    0    0    0    0    0    0    1    0     0     0     0     0
- [9,]    0    0    0    0    0    0    0    0    1     0     0     0     0
-[10,]    0    0    0    0    0    0    0    0    0     1     0     0     0
-[11,]    0    0    0    0    0    0    0    0    0     0     1     0     0
-[12,]    0    0    0    0    0    0    0    0    0     0     0     1     0
-[13,]    0    0    0    0    0    0    0    0    0     0     0     0     1
-[14,]    0    0    0    0    0    0    0    0    0     0     0     0     0
-[15,]    0    0    0    0    0    0    0    0    0     0     0     0     0
-[16,]    0    0    0    0    0    0    0    0    0     0     0     0     0
-[17,]    0    0    0    0    0    0    0    0    0     0     0     0     0
-[18,]    0    0    0    0    0    0    0    0    0     0     0     0     0
-      [,14] [,15] [,16] [,17] [,18]
- [1,]     0     0     0     0     0
- [2,]     0     0     0     0     0
- [3,]     0     0     0     0     0
- [4,]     0     0     0     0     0
- [5,]     0     0     0     0     0
- [6,]     0     0     0     0     0
- [7,]     0     0     0     0     0
- [8,]     0     0     0     0     0
- [9,]     0     0     0     0     0
-[10,]     0     0     0     0     0
-[11,]     0     0     0     0     0
-[12,]     0     0     0     0     0
-[13,]     0     0     0     0     0
-[14,]     1     0     0     0     0
-[15,]     0     1     0     0     0
-[16,]     0     0     1     0     0
-[17,]     0     0     0     1     0
-[18,]     0     0     0     0     1</code></pre>
-</div>
-</div>
+<section id="why-not-use-a-regular-anova" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Why Not Use a Regular ANOVA?</h1>
+<p>If we ignored the nested structure and treated all observations as independent, we would: - Underestimate standard errors - Inflate Type I error rates - Risk incorrect conclusions</p>
+<p>Multilevel models account for <strong>individual differences</strong> explicitly.</p>
 </section>
+<section id="optional-generalized-estimating-equations" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Optional: Generalized Estimating Equations</h1>
 </section>
-<section id="summary" class="level2" data-number="5.9">
-<h2 data-number="5.9" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.9</span> Summary</h2>
+<section id="summary" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Summary</h1>
 <p>In this chapter, we extended our workflow from simple group comparisons to multilevel modeling. We: - Imported and cleaned a real dataset - Applied exclusion criteria - Reshaped data from wide to long format - Visualized nested data - Fit a linear mixed-effects model</p>
 <p>Multilevel modeling allows us to properly analyze clustered data while accounting for individual differences. These models are essential in psychology, education, medicine, and many other fields where repeated measurements are common.</p>
 
