@@ -20,7 +20,7 @@ These skills are essential when working with repeated measures, longitudinal des
 
 ## Dataset
 
-In this example, we use data from a study among legal professionals in Belgium and the Netherlands. Participants evaluated three different scenarios, each consisting of six items measuring memory errors [Download the dataset here.](https://github.com/PaulRiesthuis/R-for-Applied-Researchers/blob/main/Raw%20Data%20.xlsx)
+In this example, we use data from a study among legal professionals in Belgium and the Netherlands. Participants evaluated three different scenarios, each consisting of six items measuring memory errors [Download the dataset here.](https://github.com/PaulRiesthuis/R-for-Applied-Researchers/blob/main/Raw_Data.xlsx)
 
 Because each participant responded to multiple items across multiple scenarios, the dataset has a **two-level structure**:
 
